@@ -1,0 +1,339 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Nusantaralens API",
+        "version": "1.0.0",
+        "description": "This API serves as the central data provider for Nusantaralens, a platform focused on showcasing Indonesia's rich heritage. It provides structured access to a comprehensive collection of data regarding Indonesian national heroes, cultural diversity, and local languages. Currently, the API is dedicated to retrieval operations (GET), allowing seamless access to these cultural resources.",
+        "contact": {
+            "name": "Gilang Mayong Saputra",
+            "email": "gilang46622@gmail.com"
+        },
+        "license": {
+            "name": "MIT License",
+            "url": "https://mit-license.org/"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:5000/",
+            "description": "Development Server"
+        }
+    ],
+    "paths": {
+        "/heroes": {
+            "get": {
+                "tags": [
+                    "Heroes"
+                ],
+                "summary": "Get all heroes",
+                "description": "Retrieve all heroes data successfully.",
+                "responses": {
+                    "200": {
+                        "description": "Heroes data retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HeroesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/culture": {
+            "get": {
+                "tags": [
+                    "Cultures"
+                ],
+                "summary": "Get all cultures",
+                "description": "Retrieve all cultures data successfully.",
+                "responses": {
+                    "200": {
+                        "description": "Cultures data retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CulturesResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/language/{iso_code}/words": {
+            "get": {
+                "tags": [
+                    "Languages"
+                ],
+                "summary": "Get words by language iso code",
+                "description": "Retrieve language words based on iso code.",
+                "parameters": [
+                    {
+                        "name": "iso_code",
+                        "in": "path",
+                        "required": true,
+                        "description": "ISO code of regional language",
+                        "schema": {
+                            "type": "string",
+                            "example": "ace"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Language words retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/WordsResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Language not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FailedResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Hero": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Ir. Soekarno"
+                    },
+                    "ascencion_document_number": {
+                        "type": "string",
+                        "example": "83/TK/TAHUN 2012"
+                    },
+                    "ascencion_document_date": {
+                        "type": "string",
+                        "example": "07 November 2012"
+                    },
+                    "ascencion_year": {
+                        "type": "integer",
+                        "example": 2012
+                    },
+                    "photo_url": {
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://example.com/photo.webp"
+                    },
+                    "birth_date": {
+                        "type": "string",
+                        "example": "06 Juni 1901"
+                    },
+                    "birth_place": {
+                        "type": "string",
+                        "example": "Surabaya, Jawa Timur"
+                    },
+                    "death_date": {
+                        "type": "string",
+                        "example": "21 Juni 1970"
+                    },
+                    "death_place": {
+                        "type": "string",
+                        "example": "Jakarta"
+                    },
+                    "burial_place": {
+                        "type": "string",
+                        "example": "Makam Bung Karno, Blitar, Jawa Timur"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Proklamator Kemerdekaan Indonesia dan Presiden pertama Republik Indonesia yang merumuskan Pancasila sebagai dasar negara."
+                    }
+                }
+            },
+            "Culture": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Wayang Kulit"
+                    },
+                    "photo_url": {
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://example.com/culture.webp"
+                    },
+                    "description": {
+                        "type": "string",
+                        "example": "Wayang Kulit adalah seni pertunjukan tradisional."
+                    }
+                }
+            },
+            "Word": {
+                "type": "object",
+                "properties": {
+                    "indonesia": {
+                        "type": "string",
+                        "example": "adik"
+                    },
+                    "daerah": {
+                        "type": "string",
+                        "example": "adek"
+                    }
+                }
+            },
+            "HeroesData": {
+                "type": "object",
+                "properties": {
+                    "heroes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Hero"
+                        }
+                    }
+                }
+            },
+            "CulturesData": {
+                "type": "object",
+                "properties": {
+                    "cultures": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Culture"
+                        }
+                    }
+                }
+            },
+            "WordsData": {
+                "type": "object",
+                "properties": {
+                    "words": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Word"
+                        }
+                    }
+                }
+            },
+            "HeroesResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Heroes data retrieved successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/HeroesData"
+                    }
+                }
+            },
+            "CulturesResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Cultures data retrieved successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/CulturesData"
+                    }
+                }
+            },
+            "WordsResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Words data retrieved successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/WordsData"
+                    }
+                }
+            },
+            "ErrorResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "error"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Internal server error"
+                    }
+                }
+            },
+            "FailedResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "failed"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Resource not found"
+                    }
+                }
+            }
+        }
+    }
+}

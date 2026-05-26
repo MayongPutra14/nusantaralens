@@ -1,0 +1,55 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend API service designed to manage database operations and provide seamless integration for Data Science models and AI features.",
+  "homepage": "https://github.com/Abudann/nusantaralens#readme",
+  "bugs": {
+    "url": "https://github.com/Abudann/nusantaralens/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abudann/nusantaralens.git"
+  },
+  "license": "ISC",
+  "author": "Gilang Mayong Saputra",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "migrate:create": "node-pg-migrate create",
+    "migrate:up": "node-pg-migrate up",
+    "migrate:up:prod": "dotenv -e .env.production node-pg-migrate up",
+    "migrate:down": "node-pg-migrate down",
+    "start": "cross-env NODE_ENV=production node ./src/server.js",
+    "start:dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
+    "seeder:hero": "node ./src/data/heroes/seeder.js",
+    "seeder:language": "node ./src/data/languages/seeder.js",
+    "seeder:culture": "node ./src/data/cultures/seeder.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@google/genai": "^2.6.0",
+    "axios": "^1.16.1",
+    "cloudinary": "^2.10.0",
+    "cors": "^2.8.6",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "form-data": "^4.0.5",
+    "joi": "^18.2.1",
+    "multer": "^2.1.1",
+    "node-pg-migrate": "^8.0.4",
+    "pg": "^8.20.0",
+    "redis": "^5.12.1",
+    "uuid": "^14.0.0"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0",
+    "eslint": "^10.2.1",
+    "eslint-config-dicodingacademy": "^0.9.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "nodemon": "^3.1.14"
+  }
+}

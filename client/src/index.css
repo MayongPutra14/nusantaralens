@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: theme('colors.nl-cream'); /* Bikin background otomatis warna krem */
+  color: theme('colors.nl-green'); /* Bikin teks otomatis warna hijau gelap */
+}

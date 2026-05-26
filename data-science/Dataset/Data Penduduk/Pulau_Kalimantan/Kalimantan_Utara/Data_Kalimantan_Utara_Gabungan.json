@@ -1,0 +1,32 @@
+[
+    {
+        "wilayah":"Malinau",
+        "laki_laki":45191,
+        "perempuan":41119
+    },
+    {
+        "wilayah":"Bulungan",
+        "laki_laki":81490,
+        "perempuan":76228
+    },
+    {
+        "wilayah":"Tana Tidung",
+        "laki_laki":14536,
+        "perempuan":13597
+    },
+    {
+        "wilayah":"Nunukan",
+        "laki_laki":110643,
+        "perempuan":101001
+    },
+    {
+        "wilayah":"Tarakan",
+        "laki_laki":137359,
+        "perempuan":124292
+    },
+    {
+        "wilayah":"Kalimantan Utara",
+        "laki_laki":389219,
+        "perempuan":356237
+    }
+]
