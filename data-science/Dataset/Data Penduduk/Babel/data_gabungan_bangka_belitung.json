@@ -1,1 +1,10 @@
-[{"keterangan":"total_bangka_belitung","laki_laki":795200,"perempuan":755600,"total_keseluruhan":1550800}]
+[
+  {
+    "keterangan": "total_bangka_belitung",
+    "region": "Bangka Belitung",
+    "tahun": 2025,
+    "laki_laki": 795200,
+    "perempuan": 755600,
+    "total_keseluruhan": 1550800
+  }
+]

@@ -1,4 +1,5 @@
 import multer from 'multer';
+import { AppError } from '../utils/appError.utils.js';
 
 const storage = multer.memoryStorage();
 
@@ -13,7 +14,13 @@ const fileFilter = (req, file, calback) => {
   if (allowedMimeTypes.includes(file.mimetype)) {
     calback(null, true);
   } else {
-    calback(new Error('Format image tidak didukung'), false);
+    calback(
+      new AppError(
+        `Unsupported image format. Use PNG, JPG, JPEG, or WEBP instead `,
+        400,
+      ),
+      false,
+    );
   }
 };
 

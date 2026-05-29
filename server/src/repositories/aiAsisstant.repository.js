@@ -1,11 +1,11 @@
 import pool from '../config/database.config.js';
 
-export const saveChatHistory = async (
+export const saveChatHistory = async ({
   sessionId,
   userQuery,
   aiResponse,
   photoUrl,
-) => {
+}) => {
   const query = {
     text: `
     INSERT INTO ai_chats
@@ -18,4 +18,20 @@ export const saveChatHistory = async (
 
   const result = await pool.query(query);
   return result.rows[0];
+};
+
+export const getChatHistoryBySession = async (sessionId) => {
+  const query = {
+    text: `
+      SELECT user_query, ai_response
+      FROM ai_chats
+      WHERE session_id = $1
+      ORDER BY created_at ASC
+      LIMIT 3
+    `,
+    values: [sessionId],
+  };
+
+  const result = await pool.query(query);
+  return result.rows;
 };

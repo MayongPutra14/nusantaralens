@@ -1,7 +1,7 @@
 import { Pool } from 'pg';
 
 const isProduction = process.env.NODE_ENV === 'production';
-console.log(process.env.NODE_ENV);
+console.log(`Using Environmnet:  ${process.env.NODE_ENV}`);
 export const pool = new Pool(
   isProduction
     ? {

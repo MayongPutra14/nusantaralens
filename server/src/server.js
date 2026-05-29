@@ -6,8 +6,7 @@ import heroRoutes from './routes/hero.routes.js';
 import cultureRoutes from './routes/culture.routes.js';
 import languageRoutes from './routes/language.routes.js';
 import populationRoutes from './routes/population.routes.js';
-import aiRoutes from './routes/ai.routes.js';
-import aiAssistantRoutes from './routes/aiAssistant.route.js';
+import aiAssistantRoutes from './routes/aiAssistant.routes.js';
 const app = express();
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST;
@@ -18,7 +17,6 @@ app.use(heroRoutes);
 app.use(cultureRoutes);
 app.use(languageRoutes);
 app.use(populationRoutes);
-app.use(aiRoutes);
 app.use(aiAssistantRoutes);
 
 app.get('/', (req, res) => {
