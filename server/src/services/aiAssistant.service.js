@@ -1,7 +1,12 @@
+import { GoogleGenAI } from '@google/genai';
 import axios from 'axios';
 import FormData from 'form-data';
 import { AppError } from '../utils/appError.utils.js';
-import { GoogleGenAI } from '@google/genai';
+import { uploadedImageToClaudinary } from './claudinary.service.js';
+import {
+  getChatHistoryBySession,
+  saveChatHistory,
+} from '../repositories/aiAsisstant.repository.js';
 
 const geminiAI = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
@@ -96,4 +101,45 @@ export const generateGeminiResponse = async (prompt, history = []) => {
       statusCode,
     );
   }
+};
+
+export const handleChatAssistant = async ({ sessionId, prompt, image }) => {
+  let photoUrl = null;
+  let finalResponse = '';
+
+  const history = await getChatHistoryBySession(sessionId);
+
+  if (image) {
+    const cloudinaryResult = await uploadedImageToClaudinary(image.buffer);
+    photoUrl = cloudinaryResult.secure_url;
+
+    const prediction = await predictImage(image);
+    const geminiPrompt = `
+        User Prompt:
+        ${prompt || 'tidak ada prompt dari user!'}
+
+        Hasil Analisis AI:
+        - Prediksi budaya: ${prediction.prediction}
+        
+        ${process.env.GEMINI_SYSTEM_PROMPT}
+      `;
+
+    finalResponse = await generateGeminiResponse(geminiPrompt, history);
+  } else if (prompt) {
+    finalResponse = await generateGeminiResponse(prompt, history);
+  }
+
+  await saveChatHistory({
+    sessionId,
+    userQuery: prompt || '-',
+    aiResponse: finalResponse,
+    photoUrl,
+  });
+
+  return {
+    sessionId,
+    prompt,
+    photoUrl,
+    response: finalResponse,
+  };
 };

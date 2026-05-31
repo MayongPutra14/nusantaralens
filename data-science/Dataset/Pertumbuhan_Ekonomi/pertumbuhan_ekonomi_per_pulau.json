@@ -1,0 +1,26 @@
+[
+    {
+        "Pulau":"Sumatera",
+        "Laju_Pertumbuhan_Ekonomi":"4,81"
+    },
+    {
+        "Pulau":"Jawa",
+        "Laju_Pertumbuhan_Ekonomi":"5,30"
+    },
+    {
+        "Pulau":"Bali dan Nusa Tenggara",
+        "Laju_Pertumbuhan_Ekonomi":"4,87"
+    },
+    {
+        "Pulau":"Kalimantan",
+        "Laju_Pertumbuhan_Ekonomi":"4,79"
+    },
+    {
+        "Pulau":"Sulawesi",
+        "Laju_Pertumbuhan_Ekonomi":"6,23"
+    },
+    {
+        "Pulau":"Maluku dan Papua",
+        "Laju_Pertumbuhan_Ekonomi":"1,44"
+    }
+]
