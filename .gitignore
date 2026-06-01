@@ -22,11 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# ---- Back End ----
-.env
-.env.*
-!.env.example
-.prettierrc
-data
-uploads/

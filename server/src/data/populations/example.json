@@ -1,0 +1,10 @@
+[
+  {
+    "keterangan": "string",
+    "region": "string",
+    "tahun": "interger",
+    "laki_laki": "interger",
+    "perempuan": "interger",
+    "total_keseluruhan": "interger"
+  }
+]

@@ -1,0 +1,15 @@
+[
+  {
+    "name": "string",
+    "ascencion_document_number": "string",
+    "ascencion_document_date": "string",
+    "ascencion_year": "integer",
+    "photo_url": "string",
+    "birth_date": "string",
+    "birth_place": "string",
+    "death_date": "string",
+    "death_place": "string",
+    "burial_place": "string",
+    "description": "string"
+  }
+]
