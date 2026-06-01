@@ -46,12 +46,12 @@ export const upsertPopulation = async ({
   return result.rows;
 };
 
-export const findIslandById = async (islandId) => {
+export const findIslandBySlug = async (islandSlug) => {
   const query = {
     text: `
-      SELECT * FROM populations WHERE id = $1
+      SELECT * FROM populations WHERE slug = $1
       `,
-    values: [islandId],
+    values: [islandSlug],
   };
 
   const result = await pool.query(query);

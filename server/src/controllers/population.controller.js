@@ -1,6 +1,6 @@
 import {
   syncPopulationData,
-  fetchIslandById,
+  fetchIslandBySlug,
 } from '../services/population.service.js';
 
 export const syncPopulation = async (req, res, next) => {
@@ -30,11 +30,11 @@ export const syncPopulation = async (req, res, next) => {
   }
 };
 
-export const getDataIslandById = async (req, res, next) => {
+export const getDataIslandBySlug = async (req, res, next) => {
   try {
-    const islandId = req.params.islandId;
+    const islandSlug = req.params.islandSlug;
 
-    const result = await fetchIslandById(islandId);
+    const result = await fetchIslandBySlug(islandSlug);
 
     res.status(200).json({
       status: 'success',

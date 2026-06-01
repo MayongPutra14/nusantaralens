@@ -1,6 +1,6 @@
 import {
   upsertPopulation,
-  findIslandById,
+  findIslandBySlug,
 } from '../repositories/population.repository.js';
 import redisClient from '../config/redis.config.js';
 
@@ -44,12 +44,12 @@ export const syncPopulationData = async (region, slug, data) => {
   };
 };
 
-export const fetchIslandById = async (islandId) => {
-  const CACHE_KEY = `indonesian:island:${islandId}`;
+export const fetchIslandBySlug = async (islandSlug) => {
+  const CACHE_KEY = `indonesian:island:${islandSlug}`;
   const cachedData = await redisClient.get(CACHE_KEY);
   if (cachedData) return JSON.parse(cachedData);
 
-  const island = await findIslandById(islandId);
+  const island = await findIslandBySlug(islandSlug);
   if (!island || island.length === 0) {
     const error = new Error('Island not found');
     error.status = 404;

@@ -109,7 +109,7 @@ npm install
 
 ---
 
-## 2. Run Database Migration
+### 2. Run Database Migration
 
 Migration digunakan untuk membuat struktur tabel database.
 
@@ -127,35 +127,30 @@ npm run migrate:up:prod
 
 ---
 
-## 3. Run Database Seeder
+## ⚠️ Important — Database Seeder
 
-Seeder digunakan untuk mengisi data awal yang dibutuhkan aplikasi, seperti data heroes, languages, cultures, dan populations.
+Aplikasi ini menggunakan mekanisme **database seeding otomatis** untuk mengisi data awal ke database.
 
-### Development
+Sebelum menjalankan perintah seeder seperti:
 
-```bash
-npm run seed:heroes:dev
-npm run seed:languages:dev
-npm run seed:cultures:dev
-npm run seed:populations:dev
+```bash id="j2m8vp"
+npm run seed:<name>:dev
+npm run seed:<name>:prod
 ```
 
-### Production
+pastikan Anda sudah membaca dokumentasi tambahan mengenai:
 
-```bash
-npm run seed:heroes:prod
-npm run seed:languages:prod
-npm run seed:cultures:prod
-npm run seed:populations:prod
-```
+* Struktur file JSON
+* Penamaan file gambar
+* Konfigurasi environment
+* Endpoint untuk population seeder
+* Hal-hal yang dapat menyebabkan proses seeding gagal
 
-### PENTING UNTUK DIPERHATIKAN
-```bash
-Jika anda ingin menggunakna API /admin/sync/populations anda perlu memasukan ADMIN_API_KEY dan menjalaskan server baik di lokal maupun prodcution
-```
----
+Dokumentasi lengkap dapat dilihat di: [Database Seeder Documentation](./docs/additional_seeder.md)
 
-## 4. Start the Server
+
+
+## 3. Start the Server
 
 ### Development Mode
 
@@ -174,7 +169,7 @@ npm run start:prod
 ## Notes
 
 * Pastikan PostgreSQL dan Redis telah aktif sebelum menjalankan aplikasi.
-* Endpoint admin tertentu memerlukan `ADMIN_API_KEY`.
+* Endpoint admin `/admin/sync/populations` memerlukan `ADMIN_API_KEY`.
 * File `.env` dan `.env.production` tidak boleh diunggah ke repository publik.
 * Jalankan migration sebelum menjalankan seeder.
 * Server harus aktif sebelum menggunakan endpoint sinkronisasi atau input data.
