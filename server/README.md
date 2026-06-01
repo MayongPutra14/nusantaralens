@@ -173,3 +173,19 @@ npm run start:prod
 * File `.env` dan `.env.production` tidak boleh diunggah ke repository publik.
 * Jalankan migration sebelum menjalankan seeder.
 * Server harus aktif sebelum menggunakan endpoint sinkronisasi atau input data.
+
+
+---
+
+## 🔌 API Documentation (Interactive UI)
+
+Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI Specification 3.0** dan **Swagger UI**. Seluruh skema data, parameter, *request body*, dan contoh respon dari endpoint `Heroes`, `Cultures`, `Languages`, `Populations`, dan `AI Assistant` dapat diakses secara langsung melalui browser Anda.
+
+### Cara Mengakses Dokumentasi:
+1. Pastikan server lokal Anda telah menyala (`npm run start:dev`).
+2. Buka browser Anda dan akses tautan berikut:
+   👉 **[http://localhost:5000/api-docs](http://localhost:5000/api-docs)**
+
+### Fitur Utama Dokumentasi:
+* **Live Testing:** Anda dapat langsung menguji respon dari database (*Try it out*).
+* **Skema Terstruktur:** Panduan lengkap mengenai tipe data input (request body) yang divalidasi oleh sistem.
