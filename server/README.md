@@ -101,7 +101,9 @@ FRONTEND_URL=https://your-frontend-domain.com
 Setelah Anda selesai melakukan konfigurasi Environment Variables (`.env` atau `.env.production`), ikuti langkah-langkah di bawah ini untuk menjalankan server.
 
 ### 1. Instalasi Dependensi
-Pastikan Anda menginstal semua *library* yang dibutuhkan oleh proyek ini terlebih dahulu:
+
+Pastikan Anda menginstal semua _library_ yang dibutuhkan oleh proyek ini terlebih dahulu:
+
 ```bash
 npm install
 
@@ -140,15 +142,13 @@ npm run seed:<name>:prod
 
 pastikan Anda sudah membaca dokumentasi tambahan mengenai:
 
-* Struktur file JSON
-* Penamaan file gambar
-* Konfigurasi environment
-* Endpoint untuk population seeder
-* Hal-hal yang dapat menyebabkan proses seeding gagal
+- Struktur file JSON
+- Penamaan file gambar
+- Konfigurasi environment
+- Endpoint untuk population seeder
+- Hal-hal yang dapat menyebabkan proses seeding gagal
 
 Dokumentasi lengkap dapat dilihat di: [Database Seeder Documentation](./docs/additional_seeder.md)
-
-
 
 ## 3. Start the Server
 
@@ -168,24 +168,36 @@ npm run start:prod
 
 ## Notes
 
-* Pastikan PostgreSQL dan Redis telah aktif sebelum menjalankan aplikasi.
-* Endpoint admin `/admin/sync/populations` memerlukan `ADMIN_API_KEY`.
-* File `.env` dan `.env.production` tidak boleh diunggah ke repository publik.
-* Jalankan migration sebelum menjalankan seeder.
-* Server harus aktif sebelum menggunakan endpoint sinkronisasi atau input data.
-
+- Pastikan PostgreSQL dan Redis telah aktif sebelum menjalankan aplikasi.
+- Endpoint admin `/admin/sync/populations` memerlukan `ADMIN_API_KEY`.
+- File `.env` dan `.env.production` tidak boleh diunggah ke repository publik.
+- Jalankan migration sebelum menjalankan seeder.
+- Server harus aktif sebelum menggunakan endpoint sinkronisasi atau input data.
 
 ---
 
 ## 🔌 API Documentation (Interactive UI)
 
-Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI Specification 3.0** dan **Swagger UI**. Seluruh skema data, parameter, *request body*, dan contoh respon dari endpoint `Heroes`, `Cultures`, `Languages`, `Populations`, dan `AI Assistant` dapat diakses secara langsung melalui browser Anda.
+Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI Specification 3.0** dan **Swagger UI**. Seluruh skema data, parameter, _request body_, dan contoh respon dari endpoint `Heroes`, `Cultures`, `Languages`, `Populations`, dan `AI Assistant` dapat diakses secara langsung melalui browser Anda.
 
 ### Cara Mengakses Dokumentasi:
-1. Pastikan server lokal Anda telah menyala (`npm run start:dev`).
-2. Buka browser Anda dan akses tautan berikut:
-   👉 **[http://localhost:5000/api-docs](http://localhost:5000/api-docs)**
+
+- **Lingkungan Pengembangan (Localhost / Development):**
+  1. Pastikan server lokal Anda telah menyala (`npm run start:dev`).
+  2. Akses tautan berikut di browser Anda:
+     👉 **[http://localhost:3000/api-docs](http://localhost:3000/api-docs)**
+
+- **Lingkungan Produksi (Live Server / Production):**
+  Dokumentasi ini juga dapat diakses langsung secara online tanpa perlu menjalankan server lokal. Akses tautan publik proyek Anda dengan akhiran `/api-docs`:
+  👉 **`https://nusantaralens.vercel.app/api-docs`**
 
 ### Fitur Utama Dokumentasi:
-* **Live Testing:** Anda dapat langsung menguji respon dari database (*Try it out*).
-* **Skema Terstruktur:** Panduan lengkap mengenai tipe data input (request body) yang divalidasi oleh sistem.
+
+- **Live Testing:** Anda dapat langsung menguji respon dari database (_Try it out_) namun jika anda menggunakan sever lokal.
+- **Skema Terstruktur:** Panduan lengkap mengenai tipe data input (request body) yang divalidasi oleh sistem.
+
+## Author
+
+Name: Gilang Mayong Saputra
+
+GitHub: [https://github.com/MayongPutra14](https://github.com/MayongPutra14)
