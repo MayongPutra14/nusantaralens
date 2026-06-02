@@ -1,9 +1,10 @@
+import redisClient from '../config/redis.config.js';
+import { findIslandBySlug } from '../repositories/island.repository.js';
 import {
   upsertPopulation,
   findPopulationByIslandId,
 } from '../repositories/population.repository.js';
-import { findIslandBySlug } from '../repositories/island.repository.js';
-import redisClient from '../config/redis.config.js';
+import { findEconomicGrowthsByIslandId } from '../repositories/economic-growths.repository.js';
 
 export const syncPopulationData = async (region, slug, data) => {
   let totalSynced = 0;
@@ -63,10 +64,14 @@ export const fetchIslandBySlug = async (islandSlug) => {
     throw error;
   }
 
-  const populations = await findPopulationByIslandId(island.id);
+  const [populations, economicGrowths] = await Promise.all([
+    findPopulationByIslandId(island.id),
+    findEconomicGrowthsByIslandId(island.id),
+  ]);
   const result = {
     island,
     populations,
+    economicGrowths,
   };
 
   await redisClient.setEx(CACHE_KEY, 3600, JSON.stringify(result));

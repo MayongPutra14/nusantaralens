@@ -8,6 +8,7 @@ import cultureRoutes from './routes/culture.routes.js';
 import languageRoutes from './routes/language.routes.js';
 import populationRoutes from './routes/population.routes.js';
 import aiAssistantRoutes from './routes/aiAssistant.routes.js';
+import economicGrowthRoutes from './routes/economic-growths.route.js';
 import { corsMiddleware } from './middlewares/cors.middleware.js';
 
 const app = express();
@@ -22,6 +23,7 @@ app.use(heroRoutes);
 app.use(cultureRoutes);
 app.use(languageRoutes);
 app.use(populationRoutes);
+app.use(economicGrowthRoutes);
 app.use(aiAssistantRoutes);
 
 app.get('/', (req, res) => {

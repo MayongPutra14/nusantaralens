@@ -31,6 +31,7 @@
     "seed:cultures:prod": "cross-env NODE_ENV=production dotenv -e .env.production node ./src/data/cultures/seeder-cultures.js",
     "seed:populations:dev": "dotenv -e .env node ./src/data/populations/seeder-population.js",
     "seed:populations:prod": "dotenv -e .env.production node ./src/data/populations/seeder-population.js",
+    "seed:economic:dev": "cross-env NODE_ENV=development dotenv -e .env node ./src/data/economic_growths/seeder-economic-growths.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

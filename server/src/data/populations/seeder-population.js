@@ -10,7 +10,8 @@ const DATA_PENDUDUK_DIR = path.join(
 );
 
 const TARGET_API_URL =
-  process.env.DS_URL || 'http://localhost:5000/admin/sync/populations';
+  `${process.env.DS_URL}/populations` ||
+  'http://localhost:5000/admin/sync/populations';
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY;
 
 const findJsonFiles = async (dir, fileList = []) => {
