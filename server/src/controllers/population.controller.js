@@ -39,9 +39,7 @@ export const getDataIslandBySlug = async (req, res, next) => {
     res.status(200).json({
       status: 'success',
       message: 'Retrieved data island succesfully',
-      data: {
-        island: result,
-      },
+      data: result,
     });
   } catch (error) {
     next(error);

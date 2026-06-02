@@ -1,42 +1,50 @@
 [
     {
-        "Pulau":"Bali",
-        "Luas Wilayah (Km2)":5582.83,
-        "Persentase Luas Wilayah":0.3
+        "Pulau": "Bali",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 5582.83,
+        "Persentase Luas Wilayah": 0.3
     },
     {
-        "Pulau":"Jawa",
-        "Luas Wilayah (Km2)":132644.29,
-        "Persentase Luas Wilayah":7.17
+        "Pulau": "Jawa",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 132644.29,
+        "Persentase Luas Wilayah": 7.17
     },
     {
-        "Pulau":"Kalimantan",
-        "Luas Wilayah (Km2)":534426.5,
-        "Persentase Luas Wilayah":28.87
+        "Pulau": "Kalimantan",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 534426.5,
+        "Persentase Luas Wilayah": 28.87
     },
     {
-        "Pulau":"Maluku",
-        "Luas Wilayah (Km2)":77599.81,
-        "Persentase Luas Wilayah":4.19
+        "Pulau": "Maluku",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 77599.81,
+        "Persentase Luas Wilayah": 4.19
     },
     {
-        "Pulau":"Nusa Tenggara",
-        "Luas Wilayah (Km2)":66010.1,
-        "Persentase Luas Wilayah":3.57
+        "Pulau": "Nusa Tenggara",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 66010.1,
+        "Persentase Luas Wilayah": 3.57
     },
     {
-        "Pulau":"Papua",
-        "Luas Wilayah (Km2)":373139.13,
-        "Persentase Luas Wilayah":20.16
+        "Pulau": "Papua",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 373139.13,
+        "Persentase Luas Wilayah": 20.16
     },
     {
-        "Pulau":"Sulawesi",
-        "Luas Wilayah (Km2)":186064.34,
-        "Persentase Luas Wilayah":10.05
+        "Pulau": "Sulawesi",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 186064.34,
+        "Persentase Luas Wilayah": 10.05
     },
     {
-        "Pulau":"Sumatera",
-        "Luas Wilayah (Km2)":475609.77,
-        "Persentase Luas Wilayah":25.69
+        "Pulau": "Sumatera",
+        "tahun": 2025,
+        "Luas Wilayah (Km2)": 475609.77,
+        "Persentase Luas Wilayah": 25.69
     }
 ]

@@ -1,9 +1,8 @@
 import pool from '../config/database.config.js';
 
 export const upsertPopulation = async ({
-  slug,
+  islandId,
   year,
-  region,
   malePopulation,
   femalePopulation,
   totalPopulation,
@@ -11,49 +10,45 @@ export const upsertPopulation = async ({
   const query = {
     text: `
     INSERT INTO populations (
-        slug,
+        island_id,
         year,
-        region,
         male_population,
         female_population,
         total_population
     )
-    VALUES ($1, $2, $3, $4, $5, $6)
+    VALUES ($1, $2, $3, $4, $5)
 
-    ON CONFLICT (slug, year)
+    ON CONFLICT (island_id, year)
 
     DO UPDATE SET
-        region = EXCLUDED.region,
         male_population = EXCLUDED.male_population,
         female_population = EXCLUDED.female_population,
         total_population = EXCLUDED.total_population,
         updated_at = CURRENT_TIMESTAMP
-    WHERE populations.male_population IS DISTINCT FROM EXCLUDED.male_population
-      OR  populations.female_population IS DISTINCT FROM EXCLUDED.female_population
     RETURNING *
   `,
-    values: [
-      slug,
-      year,
-      region,
-      malePopulation,
-      femalePopulation,
-      totalPopulation,
-    ],
+    values: [islandId, year, malePopulation, femalePopulation, totalPopulation],
   };
 
   const result = await pool.query(query);
   return result.rows;
 };
 
-export const findIslandBySlug = async (islandSlug) => {
+export const findPopulationByIslandId = async (islandId) => {
   const query = {
     text: `
-      SELECT * FROM populations WHERE slug = $1
-      `,
-    values: [islandSlug],
+      SELECT
+        year,
+        male_population,
+        female_population,
+        total_population
+      FROM populations
+      WHERE island_id = $1
+      ORDER BY year ASC
+    `,
+    values: [islandId],
   };
 
   const result = await pool.query(query);
-  return result.rows[0];
+  return result.rows;
 };

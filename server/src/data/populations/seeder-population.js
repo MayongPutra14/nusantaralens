@@ -75,7 +75,7 @@ const runSync = async () => {
       const responseData = await response.json();
       if (response.ok) {
         console.log(
-          `Island synced successfully ${regionName}. Total: ${responseData.data.total_data} rows.`,
+          `Island synced successfully ${regionName}. Total: ${responseData.totalSynced} rows.`,
         );
       } else {
         console.error(
