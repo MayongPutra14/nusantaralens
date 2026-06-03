@@ -1,11 +1,14 @@
-import path from 'path';
 import swaggerUI from 'swagger-ui-express';
-import fs from 'fs';
-import { fileURLToPath } from 'url';
+import openapiDocument from '../../openapi.json' with { type: 'json' };
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const OPEN_API_PATH = path.join(__dirname, '../../openapi.json');
+const swaggerOptions = {
+  customCssUrl:
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.min.css',
+  customJs: [
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js',
+    'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-standalone-preset.js',
+  ],
+};
+const swaggerSetup = swaggerUI.setup(openapiDocument, swaggerOptions);
 
-const openapiDocument = JSON.parse(fs.readFileSync(OPEN_API_PATH, 'utf8'));
-
-export { swaggerUI, openapiDocument };
+export { swaggerUI, openapiDocument, swaggerSetup };

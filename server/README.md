@@ -176,7 +176,7 @@ npm run start:prod
 
 ---
 
-## 🔌 API Documentation (Interactive UI)
+##  API Documentation (Interactive UI)
 
 Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI Specification 3.0** dan **Swagger UI**. Seluruh skema data, parameter, _request body_, dan contoh respon dari endpoint `Heroes`, `Cultures`, `Languages`, `Populations`, dan `AI Assistant` dapat diakses secara langsung melalui browser Anda.
 
@@ -189,7 +189,7 @@ Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI 
 
 - **Lingkungan Produksi (Live Server / Production):**
   Dokumentasi ini juga dapat diakses langsung secara online tanpa perlu menjalankan server lokal. Akses tautan publik proyek Anda dengan akhiran `/api-docs`:
-  👉 **`https://nusantaralens.vercel.app/api-docs`**
+  👉 **[https://nusantaralens.vercel.app/api-docs](https://nusantaralens.vercel.app/api-docs)**
 
 ### Fitur Utama Dokumentasi:
 

@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import { swaggerUI, openapiDocument } from './utils/swaggerUI.js';
+import { swaggerUI, openapiDocument, swaggerSetup } from './utils/swaggerUI.js';
 import errorHandler from './middlewares/errorHandler.middlerware.js';
 import heroRoutes from './routes/hero.routes.js';
 import cultureRoutes from './routes/culture.routes.js';
@@ -20,7 +20,7 @@ const HOST = process.env.HOST;
 app.use(corsMiddleware);
 app.use(express.json());
 
-app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(openapiDocument));
+app.use('/api-docs', swaggerUI.serve, swaggerSetup);
 app.use(heroRoutes);
 app.use(cultureRoutes);
 app.use(languageRoutes);
