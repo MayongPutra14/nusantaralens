@@ -1,5 +1,8 @@
 import redisClient from '../config/redis.config.js';
-import { findLanguageByIsoCode } from '../repositories/language.repository.js';
+import {
+  findLanguageByIsoCode,
+  findAllIsoCode,
+} from '../repositories/language.repository.js';
 
 export const fetchLanguageByIsoCode = async (isoCode) => {
   const CACHE_KEY = `lang:${isoCode}`;
@@ -15,6 +18,23 @@ export const fetchLanguageByIsoCode = async (isoCode) => {
     error.status = 404;
     throw error;
   }
+  await redisClient.setEx(CACHE_KEY, 3600, JSON.stringify(result));
+
+  return result;
+};
+
+export const fetchAllIsoCode = async () => {
+  const CACHE_KEY = 'lang:isoCode';
+  const cachedData = await redisClient.get(CACHE_KEY);
+  if (cachedData) return JSON.parse(cachedData);
+
+  const result = await findAllIsoCode();
+  if (!result || result.length === 0) {
+    const error = new Error('ISO codes not found');
+    error.status = 404;
+    throw error;
+  }
+
   await redisClient.setEx(CACHE_KEY, 3600, JSON.stringify(result));
 
   return result;
