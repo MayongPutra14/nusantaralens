@@ -21,6 +21,7 @@
     "migrate:up": "dotenv -e .env node-pg-migrate up",
     "migrate:up:prod": "dotenv -e .env.production node-pg-migrate up",
     "migrate:down": "dotenv -e .env node-pg-migrate down",
+    "migrate:down:prod": "dotenv -e .env.production node-pg-migrate down",
     "start:prod": "cross-env NODE_ENV=production nodemon -r dotenv/config ./src/server.js dotenv_config_path=.env.production",
     "start:dev": "cross-env NODE_ENV=development nodemon ./src/server.js",
     "seed:heroes:dev": "cross-env NODE_ENV=development dotenv -e .env node ./src/data/heroes/seeder-hero.js",
@@ -32,7 +33,9 @@
     "seed:populations:dev": "dotenv -e .env node ./src/data/populations/seeder-population.js",
     "seed:populations:prod": "dotenv -e .env.production node ./src/data/populations/seeder-population.js",
     "seed:economics:dev": "cross-env NODE_ENV=development dotenv -e .env node ./src/data/economic_growths/seeder-economic-growths.js",
+    "seed:economics:prod": "cross-env NODE_ENV=production dotenv -e .env.production node ./src/data/economic_growths/seeder-economic-growths.js",
     "seed:lands:dev": "cross-env NODE_ENV=development dotenv -e .env node ./src/data/land_areas/seeder-land-areas.js",
+    "seed:lands:prod": "cross-env NODE_ENV=production dotenv -e .env.production node ./src/data/land_areas/seeder-land-areas.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
