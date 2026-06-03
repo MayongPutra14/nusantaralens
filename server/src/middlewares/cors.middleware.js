@@ -3,9 +3,9 @@ import { AppError } from '../utils/appError.utils.js';
 
 const corsOptions = {
   origin: (origin, callback) => {
-    const allowedOrigin = process.env.FRONTEND_URL;
+    const allowedOrigin = [process.env.FRONTEND_URL, 'http://localhost:5173'];
 
-    if (!origin || origin === allowedOrigin) {
+    if (!origin || allowedOrigin.includes(origin)) {
       callback(null, true);
     } else {
       callback(
@@ -14,7 +14,7 @@ const corsOptions = {
     }
   },
   methods: ['GET', 'POST'],
-  allowedHeaders: [`Content-Type`, 'Authorization'],
+  allowedHeaders: [`Content-Type`, 'Authorization', 'x-api-key'],
   credential: true,
 };
 
