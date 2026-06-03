@@ -86,6 +86,37 @@
                 }
             }
         },
+        "/iso-code": {
+            "get": {
+                "tags": [
+                    "Languages ISO Code"
+                ],
+                "summary": "Get all ISO languages codes",
+                "description": "Retrieve all available ISO codes successfully.",
+                "responses": {
+                    "200": {
+                        "description": "ISO codes retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ISOCodeResponse"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/language/{iso_code}/words": {
             "get": {
                 "tags": [
@@ -708,6 +739,39 @@
                     },
                     "data": {
                         "$ref": "#/components/schemas/WordsData"
+                    }
+                }
+            },
+            "ISOCode": {
+                "type": "string",
+                "example": "jv",
+                "description": "An ISO language code."
+            },
+            "ISOCodeData": {
+                "type": "object",
+                "properties": {
+                    "iso_codes": {
+                        "type": "array",
+                        "description": "List of available ISO language codes.",
+                        "items": {
+                            "$ref": "#/components/schemas/ISOCode"
+                        }
+                    }
+                }
+            },
+            "ISOCodeResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Retrieved all iso codes successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/ISOCodeData"
                     }
                 }
             },
