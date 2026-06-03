@@ -1,4 +1,5 @@
 # Nusantaralens API
+![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 ## Deskripsi Proyek
 
@@ -10,7 +11,25 @@ Dibangun menggunakan arsitektur Layered Architecture yang scalable, API ini berp
 - Front-end Gateway, dengan menyediakan data yang terstruktur dan responsif untuk antarmuka website Nusantaralens.
 - Data Management, sebagai pusat pengelolaan data sejarah, bahasa, dan budaya Indonesia secara terintegrasi.
 
----
+# Teknologi & Tools yang Digunakan
+
+Layanan Back End **NusantaraLens** dibangun menggunakan ekosistem teknologi yang andal, cepat, dan terukur berikut:
+
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="50" alt="Node.js" title="Node.js" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" height="50" alt="Express.js" title="Express.js" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="50" alt="PostgreSQL" title="PostgreSQL" />
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" height="50" alt="Redis" title="Redis" />
+</p>
+
+### Core Stack
+* **Node.js** – Runtime JavaScript di sisi server untuk menangani operasi I/O yang cepat dan asinkron.
+* **Express.js** – Framework minimalis dan fleksibel untuk membangun RESTful API yang kokoh.
+
+### Database & Caching
+* **PostgreSQL** – Sistem database relasional (*RDBMS*) utama untuk pengelolaan data budaya dengan dukungan *connection pooling*.
+* **Redis** – *In-memory data store* berkinerja tinggi yang digunakan untuk manajemen *caching* demi mengoptimalkan kecepatan query.
+
 
 ## Environment Setup
 
@@ -196,8 +215,15 @@ Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI 
 - **Live Testing:** Anda dapat langsung menguji respon dari database (_Try it out_) namun jika anda menggunakan sever lokal.
 - **Skema Terstruktur:** Panduan lengkap mengenai tipe data input (request body) yang divalidasi oleh sistem.
 
-## Author
+---
 
-Name: Gilang Mayong Saputra
+# ✍️ Penulis (Author)
 
-GitHub: [https://github.com/MayongPutra14](https://github.com/MayongPutra14)
+Proyek Back-End ini dirancang dan dikembangkan sepenuhnya oleh:
+
+* **Gilang Mayong Saputra**
+  * *Role:* Backend Developer
+  * *GitHub:* [@MayongPutra14](https://github.com/MayongPutra14)
+
+---
+*Dibuat dengan ❤️ untuk pelestarian budaya Indonesia.*
