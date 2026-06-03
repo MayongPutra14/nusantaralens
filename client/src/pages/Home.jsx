@@ -1,6 +1,6 @@
 import NavbarSection from '../components/NavbarSection';
 import HeroSection from '../components/HeroSection';
-import AiAssistantSection from '../components/AiAssistantSection';
+import AIAssistantSection from '../components/AIAssistantSection';
 import InsightSection from '../components/InsightSection';
 import FooterSection from '../components/FooterSection';
 import PreviewSection from '../components/PreviewSection';
@@ -11,7 +11,7 @@ const Home = () => {
       <NavbarSection />
       <HeroSection />
       <PreviewSection />
-      <AiAssistantSection />
+      <AIAssistantSection />
       <InsightSection />
       <FooterSection />
     </div>

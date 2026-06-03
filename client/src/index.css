@@ -1,8 +1,42 @@
+/* Mengambil font Merriweather dan Teachers dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Teachers:ital,wght@0,400..800;1,400..800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-body {
-  background-color: theme('colors.nl-cream'); /* Bikin background otomatis warna krem */
-  color: theme('colors.nl-green'); /* Bikin teks otomatis warna hijau gelap */
+@layer base {
+  :root {
+    /* --- COLOR VARIABLES DARI MAS GILANG --- */
+    --inv-bg: #d7d2c6;
+    --inv-base: #5a442e;
+    --inv-accent: #9a824f;
+    --inv-border: #d7d2c6;
+    
+    /* --- FONT VARIABLES --- */
+    --font-base: 'Merriweather', serif;
+    --font-accent: 'Merriweather', serif;
+    --font-latin: 'Hoppipola', cursive;
+    
+    /* --- MENU & BUTTON VARIABLES --- */
+    --menu-bg: #846241;
+    --menu-inactive: #f4f3e9;
+    --menu-active: #5a442e;
+    --btn-color: #f5f4eb;
+  }
+
+  body {
+    @apply bg-bianca-50 text-inv-base font-base;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+  }
 }

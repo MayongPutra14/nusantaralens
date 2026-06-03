@@ -1,5 +1,5 @@
 import NavbarSection from '../components/NavbarSection';
-import AiChatSection from '../components/AiChatSection';
+import AIChatSection from '../components/AIChatSection';
 import FooterSection from '../components/FooterSection';
 
 const AIAssistantPage = () => {
@@ -7,7 +7,7 @@ const AIAssistantPage = () => {
     <div className="w-full min-h-screen flex flex-col">
       <NavbarSection />
       <main className="flex-1">
-        <AiChatSection />
+        <AIChatSection />
       </main>
     </div>
   );

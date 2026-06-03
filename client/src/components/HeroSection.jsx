@@ -1,73 +1,60 @@
-import { FaArrowRight } from 'react-icons/fa';
-
-// Mengimpor aset gambar dari folder assets
-import mapImg from '../assets/hero/peta-indonesia.png';
-import candiImg from '../assets/hero/candi-borobudur.png';
-import pahlawanImg from '../assets/hero/pahlawan.png';
+import { FaArrowRight } from 'react-icons/fa6';
+import { useNavigate } from 'react-router-dom';
+import wayangKiri from '../assets/hero/wayang-kiri.png';
+import wayangKanan from '../assets/hero/wayang-kanan.png';
+import gunungan from '../assets/hero/gunungan-jawa.png';
+import awanCluster from '../assets/hero/awan-cluster.svg';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+
   return (
-    // SECTION UTAMA: Membungkus seluruh area Hero. 
-    <section 
-      className="text-white min-h-screen relative overflow-hidden flex items-center pt-[77px]"
-      style={{ background: '#274338' }}
-    >
-      {/* 1. LAYER PALING BAWAH (z-0): Gambar Candi Borobudur */}
+    <section className="relative w-full h-screen bg-bianca-50 flex flex-col items-center justify-start md:justify-center overflow-hidden px-4 sm:px-6 pt-28 sm:pt-40 md:pt-0">
+      
+      {/* --- ORNAMEN BACKGROUND --- */}
+      {/* Wayang Kiri */}
+      <img data-aos="fade-in" data-aos-duration="1500" src={wayangKiri} alt="Wayang Kiri" className="absolute left-[-2%] sm:left-[-1%] md:left-[-2%] bottom-0 h-[40%] xs:h-[50%] sm:h-[60%] md:h-[85%] opacity-100 z-0 pointer-events-none transition-all duration-300" />
+      
+      {/* Wayang Kanan */}
+      <img data-aos="fade-in" data-aos-duration="1500" src={wayangKanan} alt="Wayang Kanan" className="absolute right-[-2%] sm:right-[-1%] md:right-[-2%] bottom-0 h-[40%] xs:h-[50%] sm:h-[60%] md:h-[85%] opacity-100 z-0 pointer-events-none transition-all duration-300" />
+      
+      {/* --- CLUSTER AWAN --- */}
+      {/* Awan Kanan Atas */}
       <img 
-        src={candiImg} 
-        alt="Background Candi" 
-        className="absolute inset-0 w-full h-full object-cover opacity-75 z-0"
+        src={awanCluster} 
+        alt="Awan Cluster" 
+        className="absolute top-20 sm:top-24 md:top-32 right-[5%] sm:right-[10%] md:right-[18%] w-16 sm:w-20 md:w-40 z-0 opacity-80 pointer-events-none transition-all duration-300" 
       />
 
-      {/* 2. LAYER TENGAH (z-10): Efek Gradient / Bayangan Gelap */}
-      <div 
-        className="absolute inset-0 z-10"
-        style={{ 
-          background: 'linear-gradient(to right, #274338 0%, #274338 30%, rgba(63, 88, 78, 0.7) 74%)' 
-        }}
-      ></div>
-
-      {/* 3. LAYER ATAS (z-20): Gambar Peta Indonesia */}
+      {/* Awan Kiri Bawah */}
       <img 
-        src={mapImg} 
-        alt="Background Peta" 
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[95%] max-w-none object-contain opacity-30 z-20 pointer-events-none"
+        src={awanCluster} 
+        alt="Awan Cluster" 
+        className="absolute bottom-20 sm:bottom-24 md:bottom-32 left-[5%] sm:left-[10%] md:left-[18%] w-16 sm:w-20 md:w-40 z-0 opacity-80 pointer-events-none transition-all duration-300" 
       />
 
-      {/* 4. LAYER KONTEN UTAMA (z-40): Tempat Judul, Teks Deskripsi, dan Tombol */}
-      <div className="w-full max-w-7xl mx-auto px-8 md:px-16 relative z-40">
-        <div className="md:w-full mt-10 md:mt-0 pb-10">
-          
-          {/* JUDUL UTAMA (Headline) */}
-          <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold font-teachers leading-tight mb-8">
-            Jelajahi <span className="block md:inline">Kekayaan</span>
-            <span className="block text-nl-brown mt-4 md:mt-6">Budaya Indonesia</span>
-          </h1>
-          
-          {/* TEKS DESKRIPSI (Sub-headline) */}
-          <p className="text-base md:text-lg font-teachers mb-10 max-w-xl leading-relaxed text-gray-200">
-            Dari keberanian para pahlawan hingga keajaiban bahasa daerah. Jelajahi warisan agung Nusantara yang mendunia dalam satu platform terpadu.
-          </p>
-          
-          {/* TOMBOL (Call to Action / CTA) */}
-          <button className="flex items-center justify-between bg-white text-nl-green w-[186px] h-[55px] rounded-full pl-5 pr-2 font-bold font-teachers hover:bg-gray-100 transition shadow-lg group">
-            <span className="text-sm">Mulai Menjelajah</span>
-            <span className="bg-nl-green text-white p-2.5 rounded-full group-hover:bg-[#1a2d25] transition">
-              <FaArrowRight size={14} />
-            </span>
-          </button>
-        </div>
-      </div>
+      {/* --- KONTEN UTAMA --- */}
+      <div className="relative z-10 flex flex-col items-center text-center max-w-3xl mt-0 md:mt-0">
+        <img src={gunungan} alt="Gunungan" className="w-12 sm:w-16 md:w-24 mb-4 md:mb-6 transition-all duration-300" />
 
-      {/* 5. LAYER GAMBAR PAHLAWAN (z-30) */}
-      <div className="absolute bottom-0 -right-4 z-30 h-[75%] md:h-[90%] w-[60%] md:max-w-[55%] flex items-end pointer-events-none">
-        <img 
-          src={pahlawanImg} 
-          alt="Pahlawan Nusantara" 
-          className="h-full w-full object-contain object-right-bottom drop-shadow-2xl"
-        />
-      </div>
+        <h1 data-aos="fade-down" className="text-4xl sm:text-5xl md:text-[72px] font-base text-swirl-600 mb-4 md:mb-6 drop-shadow-md leading-[1.2] xs:leading-tight md:leading-[1.15] font-bold transition-all duration-300 max-w-[300px] xs:max-w-[400px] md:max-w-none">
+          Jelajahi Kekayaan <br /> Budaya Indonesia
+        </h1>
+        
+        <p data-aos="fade-up" data-aos-delay="200" className="text-xs sm:text-sm md:text-lg font-teachers text-roman-coffee-800 mb-8 md:mb-10 max-w-2xl leading-relaxed">
+          Dari keberanian para pahlawan hingga keajaiban bahasa daerah. 
+          Jelajahi warisan agung Nusantara yang mendunia dalam satu platform terpadu.
+        </p>
 
+        {/* TOMBOL */}
+        <button data-aos="zoom-in" data-aos-delay="400" onClick={() => navigate('/insights')} className="flex items-center justify-between bg-white text-inv-base w-[190px] h-[55px] rounded-full pl-6 pr-2 font-bold font-teachers hover:bg-gray-50 transition shadow-lg border border-gray-200 group">
+          <span className="text-sm">Mulai Menjelajah</span>
+          <span className="bg-inv-base text-white p-2.5 rounded-full group-hover:bg-roman-coffee-800 transition">
+            <FaArrowRight size={14} />
+          </span>
+        </button>
+
+      </div>
     </section>
   );
 };
