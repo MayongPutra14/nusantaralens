@@ -122,6 +122,81 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "Resource not found"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/islands/{islandSlug}": {
+            "get": {
+                "tags": [
+                    "Islands"
+                ],
+                "summary": "Get island detail by slug",
+                "description": "Retrieve detailed information about a specific island, including population, economic growth, and land area statistics.",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "islandSlug",
+                        "required": true,
+                        "description": "Unique slug identifier of the island.",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "bangka-belitung",
+                                "bali",
+                                "kepulauan-riau",
+                                "maluku",
+                                "maluku-utara",
+                                "nusa-tenggara-barat",
+                                "nusa-tenggara-timur",
+                                "papua",
+                                "jawa",
+                                "kalimantan",
+                                "sumatera",
+                                "sulawesi"
+                            ]
+                        },
+                        "example": "sumatera"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Island data retrieved successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/IslandResponse"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Island not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "Resource not found"
                                 }
                             }
                         }
@@ -145,7 +220,7 @@
                     "Admin"
                 ],
                 "summary": "Synchronize population data",
-                "description": "This endpoint is used to manually synchronize population data into the database from external or local sources. Access is restricted and requires a valid x-api-key in the request headers.",
+                "description": "Synchronize population statistics for a specific region into the database. This endpoint accepts population datasets and performs data synchronization based on the provided region and island slug. Access is restricted and requires a valid x-api-key.",
                 "security": [
                     {
                         "AdminApiKey": []
@@ -157,6 +232,19 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/PopulationSyncRequest"
+                            },
+                            "example": {
+                                "region": "Bangka Belitung",
+                                "slug": "bangka-belitung",
+                                "data": [
+                                    {
+                                        "keterangan": "total_bangka_belitung",
+                                        "tahun": 2025,
+                                        "laki_laki": 795200,
+                                        "perempuan": 755600,
+                                        "total_keseluruhan": 1550800
+                                    }
+                                ]
                             }
                         }
                     }
@@ -178,16 +266,24 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "Invalid request body. Region, slug, and data array are required."
                                 }
                             }
                         }
                     },
                     "401": {
-                        "description": "Unauthorized access due to missing API key",
+                        "description": "Unauthorized access due to missing or invalid API key",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "API Key is missing. Access denied"
                                 }
                             }
                         }
@@ -205,42 +301,218 @@
                 }
             }
         },
-        "/islands/{islandSlug}": {
-            "get": {
+        "/admin/sync/economic-growths": {
+            "post": {
                 "tags": [
-                    "Islands"
+                    "Admin"
                 ],
-                "summary": "Get island data by slug",
-                "description": "Retrieve island population data based on the provided island slug.",
-                "parameters": [
+                "summary": "Synchronize economic growth data",
+                "description": "Synchronize economic growth statistics for a specific island into the database. This endpoint accepts economic growth datasets and performs data synchronization based on the provided island slug. Access is restricted and requires a valid x-api-key.",
+                "security": [
                     {
-                        "in": "path",
-                        "name": "islandSlug",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "nusa-tengara-barat",
-                        "description": "Island slug using lowercase and kebab-case format. Examples: bali, kepulauan-riau, nusa-tenggara-barat."
+                        "AdminApiKey": []
                     }
                 ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/EconomicGrowthSyncRequest"
+                            },
+                            "example": {
+                                "region": "Bangka Belitung",
+                                "slug": "bangka-belitung",
+                                "data": [
+                                    {
+                                        "keterangan": "total_bangka_belitung",
+                                        "tahun": 2025,
+                                        "laki_laki": 795200,
+                                        "perempuan": 755600,
+                                        "total_keseluruhan": 1550800
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Island data retrieved successfully",
+                        "description": "Economic growths data synchronized successfully",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/IslandResponse"
+                                    "$ref": "#/components/schemas/EconomicGrowthSyncResponse"
                                 }
                             }
                         }
                     },
-                    "404": {
-                        "description": "Island not found",
+                    "400": {
+                        "description": "Invalid request body",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "Slug and data are required"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized access due to missing or invalid API key",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "API Key is missing. Access denied"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/sync/land-areas": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Synchronize land area data",
+                "description": "Synchronize land area statistics for a specific island into the database. This endpoint accepts land area datasets and performs data synchronization based on the provided island slug. Access is restricted and requires a valid x-api-key.",
+                "security": [
+                    {
+                        "AdminApiKey": []
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LandAreaSyncRequest"
+                            },
+                            "example": {
+                                "region": "Bangka Belitung",
+                                "slug": "bangka-belitung",
+                                "data": [
+                                    {
+                                        "keterangan": "total_bangka_belitung",
+                                        "tahun": 2025,
+                                        "laki_laki": 795200,
+                                        "perempuan": 755600,
+                                        "total_keseluruhan": 1550800
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Land areas data synchronized successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LandAreaSyncResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request body",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "Slug and data are required"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized access due to missing or invalid API key",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "API Key is missing. Access denied"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ErrorResponse"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/chat/messages": {
+            "post": {
+                "tags": [
+                    "AI Assistant"
+                ],
+                "summary": "Send a message to the AI assistant",
+                "description": "Send a text prompt, an image, or both to interact with the AI assistant. Images are first analyzed by the image recognition model, and the result is then combined with the conversation context and processed by Gemini to generate a response. Conversation history is maintained using the provided sessionId. At least one of prompt or image must be provided.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AIChatRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "AI response generated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AIChatResponse"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request, missing prompt/image or unsupported image format",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/FailedResponse"
+                                },
+                                "example": {
+                                    "status": "failed",
+                                    "message": "Prompt or image is required"
                                 }
                             }
                         }
@@ -323,6 +595,33 @@
                     }
                 }
             },
+            "HeroesData": {
+                "type": "object",
+                "properties": {
+                    "heroes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Hero"
+                        }
+                    }
+                }
+            },
+            "HeroesResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Heroes data retrieved successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/HeroesData"
+                    }
+                }
+            },
             "Culture": {
                 "type": "object",
                 "properties": {
@@ -345,6 +644,33 @@
                     }
                 }
             },
+            "CulturesData": {
+                "type": "object",
+                "properties": {
+                    "cultures": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Culture"
+                        }
+                    }
+                }
+            },
+            "CulturesResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Cultures data retrieved successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/CulturesData"
+                    }
+                }
+            },
             "Word": {
                 "type": "object",
                 "properties": {
@@ -358,7 +684,152 @@
                     }
                 }
             },
-            "PopulationSync": {
+            "WordsData": {
+                "type": "object",
+                "properties": {
+                    "words": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Word"
+                        }
+                    }
+                }
+            },
+            "WordsResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Words data retrieved successfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/WordsData"
+                    }
+                }
+            },
+            "Island": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 11
+                    },
+                    "slug": {
+                        "type": "string",
+                        "example": "sumatera"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Sumatera"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "IslandData": {
+                "type": "object",
+                "properties": {
+                    "island": {
+                        "$ref": "#/components/schemas/Island"
+                    },
+                    "populations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Population"
+                        }
+                    },
+                    "economic_growths": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EconomicGrowth"
+                        }
+                    },
+                    "land_areas": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LandArea"
+                        }
+                    }
+                }
+            },
+            "IslandResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Retrieved data island succesfully"
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/IslandData"
+                    }
+                }
+            },
+            "Population": {
+                "type": "object",
+                "properties": {
+                    "year": {
+                        "type": "integer",
+                        "example": 2025
+                    },
+                    "male_population": {
+                        "type": "string",
+                        "example": "31669400"
+                    },
+                    "female_population": {
+                        "type": "string",
+                        "example": "30972546"
+                    },
+                    "total_population": {
+                        "type": "string",
+                        "example": "62641946"
+                    }
+                }
+            },
+            "EconomicGrowth": {
+                "type": "object",
+                "properties": {
+                    "year": {
+                        "type": "integer",
+                        "example": 2025
+                    },
+                    "growth_rate": {
+                        "type": "string",
+                        "example": "4.81"
+                    }
+                }
+            },
+            "LandArea": {
+                "type": "object",
+                "properties": {
+                    "year": {
+                        "type": "integer",
+                        "example": 2025
+                    },
+                    "land_area_km2": {
+                        "type": "string",
+                        "example": "475609.77"
+                    },
+                    "land_area_percentage": {
+                        "type": "string",
+                        "example": "25.69"
+                    }
+                }
+            },
+            "PopulationSyncItem": {
                 "type": "object",
                 "properties": {
                     "keterangan": {
@@ -385,6 +856,11 @@
             },
             "PopulationSyncRequest": {
                 "type": "object",
+                "required": [
+                    "region",
+                    "slug",
+                    "data"
+                ],
                 "properties": {
                     "region": {
                         "type": "string",
@@ -397,166 +873,8 @@
                     "data": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/PopulationSync"
+                            "$ref": "#/components/schemas/PopulationSyncItem"
                         }
-                    }
-                }
-            },
-            "Island": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "integer",
-                        "example": 3
-                    },
-                    "slug": {
-                        "type": "string",
-                        "example": "bali"
-                    },
-                    "year": {
-                        "type": "integer",
-                        "example": 2025
-                    },
-                    "region": {
-                        "type": "string",
-                        "example": "Bali"
-                    },
-                    "male_population": {
-                        "type": "string",
-                        "example": "2234600"
-                    },
-                    "female_population": {
-                        "type": "string",
-                        "example": "2226700"
-                    },
-                    "total_population": {
-                        "type": "string",
-                        "example": "4461300"
-                    },
-                    "created_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2026-06-01T14:04:23.662Z"
-                    },
-                    "updated_at": {
-                        "type": "string",
-                        "format": "date-time",
-                        "example": "2026-06-01T14:04:23.662Z"
-                    }
-                }
-            },
-            "HeroesData": {
-                "type": "object",
-                "properties": {
-                    "heroes": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Hero"
-                        }
-                    }
-                }
-            },
-            "CulturesData": {
-                "type": "object",
-                "properties": {
-                    "cultures": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Culture"
-                        }
-                    }
-                }
-            },
-            "WordsData": {
-                "type": "object",
-                "properties": {
-                    "words": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Word"
-                        }
-                    }
-                }
-            },
-            "PopulationSyncData": {
-                "type": "object",
-                "properties": {
-                    "total_data": {
-                        "type": "integer",
-                        "example": 1
-                    },
-                    "region": {
-                        "type": "object",
-                        "properties": {
-                            "city": {
-                                "type": "string",
-                                "example": "Bangka Belitung"
-                            },
-                            "start_year": {
-                                "type": "integer",
-                                "example": 2025
-                            },
-                            "end_year": {
-                                "type": "integer",
-                                "example": 2025
-                            }
-                        }
-                    }
-                }
-            },
-            "IslandData": {
-                "type": "object",
-                "properties": {
-                    "island": {
-                        "$ref": "#/components/schemas/Island"
-                    }
-                }
-            },
-            "HeroesResponse": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "success"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": "Heroes data retrieved successfully"
-                    },
-                    "data": {
-                        "$ref": "#/components/schemas/HeroesData"
-                    }
-                }
-            },
-            "CulturesResponse": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "success"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": "Cultures data retrieved successfully"
-                    },
-                    "data": {
-                        "$ref": "#/components/schemas/CulturesData"
-                    }
-                }
-            },
-            "WordsResponse": {
-                "type": "object",
-                "properties": {
-                    "status": {
-                        "type": "string",
-                        "example": "success"
-                    },
-                    "message": {
-                        "type": "string",
-                        "example": "Words data retrieved successfully"
-                    },
-                    "data": {
-                        "$ref": "#/components/schemas/WordsData"
                     }
                 }
             },
@@ -572,11 +890,70 @@
                         "example": "Population data for Bangka Belitung synced successfully"
                     },
                     "data": {
-                        "$ref": "#/components/schemas/PopulationSyncData"
+                        "type": "object",
+                        "properties": {
+                            "total_data": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "region": {
+                                "type": "object",
+                                "properties": {
+                                    "city": {
+                                        "type": "string",
+                                        "example": "Bangka Belitung"
+                                    },
+                                    "start_year": {
+                                        "type": "integer",
+                                        "example": 2025
+                                    },
+                                    "end_year": {
+                                        "type": "integer",
+                                        "example": 2025
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             },
-            "IslandResponse": {
+            "EconomicGrowthSyncItem": {
+                "type": "object",
+                "properties": {
+                    "Pulau": {
+                        "type": "string",
+                        "example": "Jawa"
+                    },
+                    "tahun": {
+                        "type": "integer",
+                        "example": 2025
+                    },
+                    "Laju_Pertumbuhan_Ekonomi": {
+                        "type": "string",
+                        "example": "4,81"
+                    }
+                }
+            },
+            "EconomicGrowthSyncRequest": {
+                "type": "object",
+                "required": [
+                    "slug",
+                    "data"
+                ],
+                "properties": {
+                    "slug": {
+                        "type": "string",
+                        "example": "jawa"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EconomicGrowthSyncItem"
+                        }
+                    }
+                }
+            },
+            "EconomicGrowthSyncResponse": {
                 "type": "object",
                 "properties": {
                     "status": {
@@ -585,10 +962,154 @@
                     },
                     "message": {
                         "type": "string",
-                        "example": "Retrieved data island succesfully"
+                        "example": "Economic growth synced successfully"
                     },
                     "data": {
-                        "$ref": "#/components/schemas/IslandData"
+                        "type": "object",
+                        "properties": {
+                            "island": {
+                                "type": "string",
+                                "example": "Jawa"
+                            },
+                            "total_synced": {
+                                "type": "integer",
+                                "example": 1
+                            }
+                        }
+                    }
+                }
+            },
+            "LandAreaSyncItem": {
+                "type": "object",
+                "properties": {
+                    "Pulau": {
+                        "type": "string",
+                        "example": "Jawa"
+                    },
+                    "tahun": {
+                        "type": "integer",
+                        "example": 2025
+                    },
+                    "Luas Wilayah (Km2)": {
+                        "type": "number",
+                        "example": 128297
+                    },
+                    "Persentase Luas Wilayah": {
+                        "type": "number",
+                        "example": 6.75
+                    }
+                }
+            },
+            "LandAreaSyncRequest": {
+                "type": "object",
+                "required": [
+                    "slug",
+                    "data"
+                ],
+                "properties": {
+                    "slug": {
+                        "type": "string",
+                        "example": "jawa"
+                    },
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/LandAreaSyncItem"
+                        }
+                    }
+                }
+            },
+            "LandAreaSyncResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "Land areas synced successfully"
+                    },
+                    "data": {
+                        "type": "object",
+                        "properties": {
+                            "island": {
+                                "type": "string",
+                                "example": "Jawa"
+                            },
+                            "total_synced": {
+                                "type": "integer",
+                                "example": 1
+                            }
+                        }
+                    }
+                }
+            },
+            "AIChatRequest": {
+                "type": "object",
+                "properties": {
+                    "sessionId": {
+                        "type": "string",
+                        "example": "session_12345",
+                        "description": "Unique session identifier used to maintain conversation context."
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "example": "Tolong jelaskan gambar ini dan apa hubungannya dengan budaya Indonesia?"
+                    },
+                    "image": {
+                        "type": "string",
+                        "format": "binary",
+                        "description": "Image file in PNG, JPG, JPEG, or WEBP format."
+                    }
+                },
+                "anyOf": [
+                    {
+                        "required": [
+                            "prompt"
+                        ]
+                    },
+                    {
+                        "required": [
+                            "image"
+                        ]
+                    }
+                ]
+            },
+            "AIChatData": {
+                "type": "object",
+                "properties": {
+                    "sessionId": {
+                        "type": "string",
+                        "example": "session_12345"
+                    },
+                    "prompt": {
+                        "type": "string",
+                        "example": "Tolong jelaskan gambar ini dan apa hubungannya dengan budaya Indonesia?"
+                    },
+                    "photoUrl": {
+                        "type": "string",
+                        "example": "https://res.cloudinary.com/example/image/upload/sample.jpg"
+                    },
+                    "response": {
+                        "type": "string",
+                        "example": "Gambar ini menunjukkan..."
+                    }
+                }
+            },
+            "AIChatResponse": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "example": "success"
+                    },
+                    "message": {
+                        "type": "string",
+                        "example": "AI response generated succesfully."
+                    },
+                    "data": {
+                        "$ref": "#/components/schemas/AIChatData"
                     }
                 }
             },
@@ -613,8 +1134,7 @@
                         "example": "failed"
                     },
                     "message": {
-                        "type": "string",
-                        "example": "Resource not found"
+                        "type": "string"
                     }
                 }
             }
