@@ -25,7 +25,7 @@ const seedCultures = async () => {
     const rawData = await fs.readFile(jsonPath, 'utf-8');
     const cultures = JSON.parse(rawData);
 
-    console.log(`Memulai proses upload & insert untuk ${cultures.length} data`);
+    console.log(`Structuring Bulk Insert query for ${values.length} rows...`);
 
     const values = [];
     let count = 1;
@@ -39,9 +39,9 @@ const seedCultures = async () => {
 
       console.log('---');
       console.log(`Nomor urut ke-, ${count++}`);
-      console.log(`[1] Budaya: ${originalName}`);
+      console.log(`[1] cuture: ${originalName}`);
       console.log(`[2] Generated Slug: ${slugName}`);
-      console.log(`[3] Mencari File di: ${imagePath}`);
+      console.log(`[3] Searching for files in: ${imagePath}`);
 
       const uploadResult = await cloudinary.uploader.upload(imagePath, {
         folder: 'budaya_indonesia',
@@ -58,7 +58,7 @@ const seedCultures = async () => {
       ]);
     }
 
-    console.log(`Menyusun query Bulk Insert untuk ${values.length} data...`);
+    console.log(`Structuring Bulk Insert query for ${values.length} rows...`);
 
     const queryText = `
                         INSERT INTO cultures 
@@ -74,9 +74,11 @@ const seedCultures = async () => {
                     `;
 
     const result = await pool.query(queryText, values.flat());
-    console.log(`Berhasil memasukkan ${result.rowCount} culture ke database.`);
+    console.log(
+      `${result.rowCount} cultures successfully inserted into the database.`,
+    );
   } catch (error) {
-    console.error('Gagal seeding:', error.message);
+    console.error('Fatal error occurred on the seeder:', error.message);
   } finally {
     await pool.end();
   }

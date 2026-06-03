@@ -1,9 +1,9 @@
 import express from 'express';
-import { syncPopulation } from '../controllers/population.controller.js';
+import { syncLandAreas } from '../controllers/lands.controller.js';
 import { apiKeyValidator } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
-router.post('/admin/sync/populations', apiKeyValidator, syncPopulation);
+router.post('/admin/sync/land-areas', apiKeyValidator, syncLandAreas);
 
 export default router;

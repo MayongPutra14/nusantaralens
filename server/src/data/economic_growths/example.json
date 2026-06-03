@@ -1,0 +1,7 @@
+[
+  {
+    "Pulau": "string",
+    "tahun": "integer",
+    "Laju_Pertumbuhan_Ekonomi": "integer"
+  }
+]

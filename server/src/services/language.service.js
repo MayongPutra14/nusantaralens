@@ -6,7 +6,6 @@ export const fetchLanguageByIsoCode = async (isoCode) => {
 
   const cachedData = await redisClient.get(CACHE_KEY);
   if (cachedData) {
-    console.log('Cache Hit!');
     return JSON.parse(cachedData);
   }
 
@@ -17,7 +16,6 @@ export const fetchLanguageByIsoCode = async (isoCode) => {
     throw error;
   }
   await redisClient.setEx(CACHE_KEY, 3600, JSON.stringify(result));
-  console.log('Cache Miss!');
 
   return result;
 };

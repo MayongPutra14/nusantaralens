@@ -1,0 +1,8 @@
+[
+  {
+    "Pulau": "string",
+    "tahun": "integer",
+    "Luas Wilayah (Km2)": "numeric",
+    "Persentase Luas Wilayah": "numeric"
+  }
+]

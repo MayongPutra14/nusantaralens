@@ -29,14 +29,13 @@ const seedLanguages = async () => {
   const client = await pool.connect();
 
   try {
-    console.log('🚀 Memulai proses seeding...');
+    console.log('Initiating database seeding process...');
     await client.query('BEGIN');
 
     for (const file of files) {
       const filePath = path.join(__dirname, file.fileName);
-      //   console.log(filePath);
       if (!fs.existsSync(filePath)) {
-        console.warn(`⚠️ File tidak ditemukan: ${filePath}`);
+        console.warn(`File not found: ${filePath}`);
         continue;
       }
 
@@ -47,7 +46,7 @@ const seedLanguages = async () => {
       const localData = rawData[file.name];
 
       if (!indoData || !localData) {
-        console.warn(`⚠️ Struktur JSON salah di file: ${file.fileName}`);
+        console.warn(`Invalid JSON structure in file: ${file.fileName}`);
         continue;
       }
 
@@ -90,14 +89,14 @@ const seedLanguages = async () => {
         }
       }
 
-      console.log(`✅ Berhasil memproses ${file.name} (${file.isoCode})`);
+      console.log(`Successfully processed ${file.name} (${file.isoCode})`);
     }
 
     await client.query('COMMIT');
-    console.log('🌟 Seeding selesai dengan sempurna!');
+    console.log('Database seeding has been completed successfully.');
   } catch (error) {
     await client.query('ROLLBACK');
-    console.error('❌ Seeding gagal, perubahan dibatalkan:', error.message);
+    console.error('Fatal error occurred on the seeder:', error.message);
   } finally {
     client.release();
   }

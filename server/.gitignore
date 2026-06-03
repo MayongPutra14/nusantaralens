@@ -3,13 +3,10 @@
 .env.*
 !.env.example
 .prettierrc
+
+# uploads
 /uploads/*
 !/uploads/example_image.webp
-/src/data/cultures/*.json
-!/src/data/cultures/example.json
-/src/data/heroes/*.json
-!/src/data/heroes/example.json
-/src/data/languages/*.json
-!/src/data/languages/example.json
-/src/data/populations/*.json
-!/src/data/populations/example.json
+# Data
+/src/data/**/*.json
+!/src/data/**/example.json

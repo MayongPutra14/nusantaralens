@@ -7,7 +7,6 @@ export const fetchHeroes = async () => {
 
   const cachedData = await redisClient.get(CACHE_KEY);
   if (cachedData) {
-    console.log('Cache Hit!');
     return JSON.parse(cachedData);
   }
 
@@ -19,7 +18,6 @@ export const fetchHeroes = async () => {
   }
 
   await redisClient.setEx(CACHE_KEY, 3600, JSON.stringify(heroes));
-  console.log('Cache Miss!');
 
   return heroes;
 };

@@ -38,9 +38,9 @@ const seedHeroes = async () => {
 
       console.log('---');
       console.log('nomor ke-', count++);
-      console.log(`👤 Pahlawan: ${originalName}`);
-      console.log(`🔗 Generated Slug: ${slugName}`);
-      console.log(`📂 Mencari File di: ${imagePath}`);
+      console.log(`[1] Pahlawan: ${originalName}`);
+      console.log(`[2] Generated Slug: ${slugName}`);
+      console.log(`[3] Mencari File di: ${imagePath}`);
 
       const uploadResult = await cloudinary.uploader.upload(imagePath, {
         folder: 'pahlawan_indonesia',
@@ -65,7 +65,7 @@ const seedHeroes = async () => {
       ]);
     }
 
-    console.log(`📦 Menyusun query Bulk Insert untuk ${values.length} data...`);
+    console.log(`Structuring Bulk Insert query for ${values.length} rows...`);
 
     const queryText = `
                     INSERT INTO heroes 
@@ -85,10 +85,10 @@ const seedHeroes = async () => {
     const result = await pool.query(queryText, values.flat());
 
     console.log(
-      `✅ Berhasil memasukkan ${result.rowCount} pahlawan ke database.`,
+      `${result.rowCount} heroes successfully inserted into the database.`,
     );
   } catch (error) {
-    console.error('❌ Gagal seeding:', error.message);
+    console.error('Fatal error occurred on the seeder:', error.message);
   } finally {
     await pool.end();
   }

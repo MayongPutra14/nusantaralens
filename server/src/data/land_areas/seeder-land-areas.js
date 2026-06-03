@@ -4,14 +4,16 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ECONOMIC_GROWTH_FILE = path.join(
+
+const LAND_AREA_FILE = path.join(
   __dirname,
-  '../../../../data-science/Dataset/Pertumbuhan_Ekonomi/pertumbuhan_ekonomi_per_pulau.json',
+  '../../../../data-science/Dataset/Luasan_Wilayah/luas_wilayah_per_pulau.json',
 );
 
 const TARGET_API_URL =
-  `${process.env.DS_URL}/economic-growths` ||
-  'http://localhost:5000/admin/sync/economic-growths';
+  `${process.env.DS_URL}/land-areas` ||
+  'http://localhost:5000/admin/sync/land-areas';
+
 const ADMIN_API_KEY = process.env.ADMIN_API_KEY;
 
 const generateSlug = (name) => {
@@ -37,13 +39,13 @@ const groupByIsland = (data) => {
 
 const runSync = async () => {
   try {
-    console.log('====== START PROCESS ECONOMIC GROWTH SYNCHRONIZATION ======');
+    console.log('====== START PROCESS LAND AREAS SYNCHRONIZATION ======');
 
-    const rawData = await fs.readFile(ECONOMIC_GROWTH_FILE, 'utf-8');
+    const rawData = await fs.readFile(LAND_AREA_FILE, 'utf-8');
     const jsonData = JSON.parse(rawData);
 
     if (!Array.isArray(jsonData) || jsonData.length === 0) {
-      console.log('Economic growth data is empty!');
+      console.log('Land area data is empty!');
       return;
     }
 

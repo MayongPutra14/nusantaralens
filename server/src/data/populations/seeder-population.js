@@ -76,7 +76,7 @@ const runSync = async () => {
       const responseData = await response.json();
       if (response.ok) {
         console.log(
-          `Island synced successfully ${regionName}. Total: ${responseData.totalSynced} rows.`,
+          `Island synced successfully ${regionName}. Total: ${responseData.data.total_data} rows.`,
         );
       } else {
         console.error(
@@ -88,7 +88,7 @@ const runSync = async () => {
 
     console.log('\n====== ALL SYNCHRONIZATIONS IS DONE ======');
   } catch (error) {
-    console.error('Terjadi error fatal pada runner:', error.message);
+    console.error('Fatal error occurred on the seeder:', error.message);
   }
 };
 

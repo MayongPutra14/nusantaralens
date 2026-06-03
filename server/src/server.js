@@ -9,6 +9,8 @@ import languageRoutes from './routes/language.routes.js';
 import populationRoutes from './routes/population.routes.js';
 import aiAssistantRoutes from './routes/aiAssistant.routes.js';
 import economicGrowthRoutes from './routes/economic-growths.route.js';
+import landAreasRoutes from './routes/lands.routes.js';
+import insightRoutes from './routes/insight.routes.js';
 import { corsMiddleware } from './middlewares/cors.middleware.js';
 
 const app = express();
@@ -24,11 +26,9 @@ app.use(cultureRoutes);
 app.use(languageRoutes);
 app.use(populationRoutes);
 app.use(economicGrowthRoutes);
+app.use(landAreasRoutes);
+app.use(insightRoutes);
 app.use(aiAssistantRoutes);
-
-app.get('/', (req, res) => {
-  res.send(`Assalamualaikum API berhasil berjalan`);
-});
 
 app.use(errorHandler);
 
