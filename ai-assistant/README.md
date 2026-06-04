@@ -11,7 +11,7 @@ short_description: This space is dedicated for nusantaralens
 
 Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
 
-# 🚀 NusantaraLens - AI Assistant Service
+# NusantaraLens - AI Assistant Service
 
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
