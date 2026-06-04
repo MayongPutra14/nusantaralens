@@ -1,6 +1,5 @@
 # Nusantaralens
-
-Platform digital interaktif untuk mengeksplorasi kekayaan budaya, sejarah, dan keberagaman Indonesia melalui visualisasi data, informasi terstruktur, dan teknologi Artificial Intelligence (AI).
+![Nusantaralens](./client/src/assets/preview/hero-section-nusantaralens.png)
 
 ## Tentang NusantaraLens
 
