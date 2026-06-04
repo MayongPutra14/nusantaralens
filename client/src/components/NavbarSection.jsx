@@ -94,8 +94,8 @@ const NavbarSection = ({ isAbsoluteBg }) => {
             
             {/* KOTAK DROPDOWN (Hover di sini tetap cokelat karena bg kotak putih) */}
             <div className="absolute top-[100%] left-[-20px] w-56 bg-white shadow-xl rounded-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 flex flex-col overflow-hidden text-inv-base z-50">
-              <Link to="/explore/pahlawan" className="px-5 py-3 hover:bg-bianca-50 hover:text-inv-accent transition border-b border-gray-50">Galeri Pahlawan</Link>
-              <Link to="/explore/kamus" className="px-5 py-3 hover:bg-bianca-50 hover:text-inv-accent transition border-b border-gray-200">Kamus Bahasa Daerah</Link>
+              <Link to="/explore/pahlawan" className="px-5 py-3 hover:bg-bianca-50 hover:text-inv-accent transition">Galeri Pahlawan</Link>
+              <Link to="/explore/kamus" className="px-5 py-3 hover:bg-bianca-50 hover:text-inv-accent transition">Kamus Bahasa Daerah</Link>
               <Link to="/explore/budaya" className="px-5 py-3 hover:bg-bianca-50 hover:text-inv-accent transition">Budaya & Tradisi</Link>
             </div>
           </li>

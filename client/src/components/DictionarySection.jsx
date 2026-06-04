@@ -22,7 +22,7 @@ const DictionarySection = () => {
     const fetchDictionaries = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch('https://nusantaralens.vercel.app/languages', {
+        const response = await fetch('https://nusantaralens.vercel.app/iso-code', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -33,7 +33,27 @@ const DictionarySection = () => {
         const result = await response.json();
         
         if (result.status === 'success') {
-          setDictionariesData(result.data.languages || result.data);
+          const rawCodes = result.data.iso_codes || [];
+
+          const mappedDictionaries = rawCodes.map((code) => {
+            const languageMap = {
+              'jv': { name: 'Bahasa Jawa', region: 'Jawa Tengah / Timur', image: 'https://images.unsplash.com/photo-1604928153303-393cb148bf56?q=80&w=800' },
+              'ace': { name: 'Bahasa Aceh', region: 'Nanggroe Aceh Darussalam', image: 'https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?q=80&w=800' },
+              'abui': { name: 'Bahasa Abui', region: 'Nusa Tenggara Timur', image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?q=80&w=800' },
+            };
+
+            const info = languageMap[code] || { name: `Bahasa (${code})`, region: 'Indonesia', image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=800' };
+
+            return {
+              id: code, 
+              name: info.name,
+              region: info.region,
+              image: info.image,
+              image_url: info.image
+            };
+          });
+
+          setDictionariesData(mappedDictionaries);
         }
       } catch (error) {
         console.error("Gagal mengambil data kamus:", error);
@@ -122,7 +142,7 @@ const DictionarySection = () => {
                 data-aos-delay={index * 50}
                 className="relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer aspect-[3/4] bg-gray-200"
               >
-                <img src={dict.image_url || dict.image} alt={dict.name || dict.language} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                <img src={dict.image || dict.image_url} alt={dict.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
                 <div className="absolute bottom-0 left-0 w-full h-[35%] bg-black/60 backdrop-blur-[2px] transition-all duration-300"></div>
                 <div className="absolute bottom-0 left-0 w-full p-6 text-left">
                   <h3 className="text-white font-bold text-lg md:text-xl font-base drop-shadow-md">{dict.region}</h3>
