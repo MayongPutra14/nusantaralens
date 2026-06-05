@@ -328,16 +328,6 @@ const CultureSection = () => {
                   {selectedCulture.name}
                 </h2>
 
-                {/* Sub-keterangan daerah  */}
-                {selectedCulture.region && (
-                  <p className="text-sm font-semibold text-gray-500 mb-4 flex items-center gap-1">
-                    Kebudayaan Asal:{" "}
-                    <span className="text-gray-800">
-                      {selectedCulture.region}
-                    </span>
-                  </p>
-                )}
-
                 <hr className="border-gray-100 my-4" />
 
                 <h4 className="text-xs font-semibold text-gray-800 uppercase tracking-wider mb-2.5">

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaMagnifyingGlass } from "react-icons/fa6";
+import { FaMagnifyingGlass, FaArrowLeft } from "react-icons/fa6";
 import burungOrnament from "../assets/heroes/burung.png";
 import penariKiri from "../assets/heroes/penari-kiri.png";
 import penariKanan from "../assets/heroes/penari-kanan.png";
@@ -16,6 +16,18 @@ const DictionarySection = () => {
   // State API Kamus
   const [dictionaries, setDictionariesData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  // Stare Untuk Menyimpan isoCode bahasa daerah yang lagi di klik
+  const [selectedIso, setSelectedIso] = useState(null);
+
+  // State untuk Menyimpan list kosakata [{indonesia, daerah}] dari API
+  const [words, setWords] = useState([]);
+
+  // State untuk loading saat mengambil list kata
+  const [isWordsLoading, setIsWordsLoading] = useState(false);
+
+  // State untuk pencarian kata di dalam kamus daerah
+  const [wordSearchQuery, setWordSearchQuery] = useState("");
 
   // Fungsi Fetch API Bahasa/Kamus
   useEffect(() => {
@@ -89,6 +101,38 @@ const DictionarySection = () => {
     fetchDictionaries();
   }, []);
 
+  // Fetch data constanta ketika baru di klik
+  useEffect(() => {
+    if (!selectedIso) return;
+
+    const fetchWordsByIso = async () => {
+      setIsWordsLoading(true);
+      try {
+        const response = await fetch(
+          `https://nusantaralens.vercel.app/language/${selectedIso}/words`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "x-api-key":
+                "237aa5e59230a900ed4d1e632c5bf9e4a03d4f79d68ae991cd0aaaa2416b95e0",
+            },
+          },
+        );
+        const result = await response.json();
+        if (result.status === "success") {
+          setWords(result.data.words || []);
+        }
+      } catch (error) {
+        console.error("Gagal mengambil data kata daerah:", error);
+      } finally {
+        setIsWordsLoading(false);
+      }
+    };
+
+    fetchWordsByIso();
+  }, [selectedIso]);
+
   // Logic filter pencarian (Mendukung properti name/language dan region)
   const filteredDicts = dictionaries.filter((dict) => {
     const langName = dict.name || dict.language || "";
@@ -97,6 +141,14 @@ const DictionarySection = () => {
     return (
       langName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       regionName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  });
+
+  // Logic pencarian kata di kamus daerah
+  const filteredWords = words.filter((item) => {
+    return (
+      item.indonesia.toLowerCase().includes(wordSearchQuery.toLowerCase()) ||
+      item.daerah.toLowerCase().includes(wordSearchQuery.toLowerCase())
     );
   });
 
@@ -120,6 +172,111 @@ const DictionarySection = () => {
     setCurrentPage(1);
   }, [searchQuery]);
 
+  // Mencari info data bahasa yang sedang aktif untuk dipasang di Header Detail
+  const activeLanguageInfo = dictionaries.find((d) => d.id === selectedIso);
+
+  // Menampilkan kosa kata dari kamus yang di pilih
+  if (selectedIso) {
+    return (
+      <section className="relative w-full bg-bianca-50 font-teachers flex flex-col items-center pt-32 z-10 overflow-hidden min-h-screen">
+        {/* Background decorative wayang*/}
+        <img
+          src={wayangKiri}
+          alt="Wayang Kiri"
+          className="absolute left-0 top-[40%] -translate-y-1/2 w-10 md:w-16 lg:w-20 opacity-90 pointer-events-none"
+          data-aos="fade-right"
+        />
+        <img
+          src={wayangKanan}
+          alt="Wayang Kanan"
+          className="absolute right-0 top-[40%] -translate-y-1/2 w-10 md:w-16 lg:w-20 opacity-90 pointer-events-none"
+          data-aos="fade-left"
+        />
+
+        <div className="w-full max-w-4xl mx-auto px-6 pb-24 relative z-10 flex flex-col items-start">
+          <button
+            onClick={() => {
+              setSelectedIso(null); // Kembali ke menu utama
+              setWords([]); // Bersihkan data array kata utnuk memori
+              setWordSearchQuery(""); // Reset kolom pencarian kata
+            }}
+            className="group flex items-center gap-2 px-4 py-2 bg-white text-inv-base font-semibold rounded-full shadow-sm hover:shadow-md border border-gray-100 transition-all text-sm mb-8"
+          >
+            <FaArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+            Kembali ke Daftar Kamus
+          </button>
+
+          {/* HEADER KAMUS */}
+          <div className="w-full text-left border-b border-gray-200 pb-6 mb-8">
+            <h1 className="text-3xl md:text-4xl font-bold font-base text-inv-accent mt-3">
+              {activeLanguageInfo?.name}
+            </h1>
+            <p className="text-gray-500 text-sm md:text-base mt-1">
+              Asal Wilayah:{" "}
+              <span className="font-semibold text-gray-700">
+                {activeLanguageInfo?.region}
+              </span>
+            </p>
+
+            {/* Input Pencarian Kata Khusus */}
+            <div className="w-full max-w-md bg-white rounded-xl shadow-sm flex items-center px-4 py-3 border border-gray-100 mt-6">
+              <FaMagnifyingGlass className="text-gray-400 mr-3" />
+              <input
+                type="text"
+                placeholder={`Cari arti kata Indonesia atau daerah...`}
+                className="flex-grow bg-transparent outline-none text-gray-700 text-sm md:text-base placeholder-gray-400"
+                value={wordSearchQuery}
+                onChange={(e) => setWordSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+
+          {/* MAIN CONTENT: Loading dan Grid */}
+          {isWordsLoading ? (
+            <div className="w-full flex flex-col items-center justify-center py-20 text-gray-400">
+              <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-inv-accent mx-auto mb-4"></div>
+              <p className="text-sm">Sedang memuat seluruh kosakata...</p>
+            </div>
+          ) : filteredWords.length > 0 ? (
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {filteredWords.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow flex flex-col justify-center text-left relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 left-0 w-1.5 h-full bg-[#b5a38f]/50 group-hover:bg-[#b5a38f] transition-colors" />
+                  <span className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
+                    Bahasa Daerah
+                  </span>
+                  <h3 className="text-lg font-bold text-inv-accent mb-2">
+                    {item.daerah}
+                  </h3>
+                  <div className="border-t border-dashed border-gray-100 pt-2 mt-1">
+                    <span className="text-xs font-medium text-gray-400 uppercase tracking-wide block mb-0.5">
+                      Bahasa Indonesia
+                    </span>
+                    <p className="text-gray-600 font-medium text-sm md:text-base">
+                      {item.indonesia}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="w-full text-center py-16 bg-white rounded-3xl border border-dashed border-gray-200 text-gray-500">
+              <FaMagnifyingGlass
+                size={24}
+                className="mx-auto mb-3 text-gray-300"
+              />
+              <p className="text-sm">
+                Kata "{wordSearchQuery}" tidak ditemukan dalam kamus ini.
+              </p>
+            </div>
+          )}
+        </div>
+      </section>
+    );
+  }
   return (
     <section className="relative w-full bg-bianca-50 font-teachers flex flex-col items-center pt-32 z-10 overflow-hidden">
       <img
@@ -202,7 +359,11 @@ const DictionarySection = () => {
                 key={dict.id}
                 data-aos="fade-up"
                 data-aos-delay={index * 50}
-                className="relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer aspect-[3/4] bg-gray-200"
+                onClick={() => {
+                  console.log("Kartu diklik! ID Bahasa:", dict.id);
+                  setSelectedIso(dict.id);
+                }}
+                className="relative group rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 cursor-pointer aspect-[3/4] bg-gray-200 z-30 pointer-events-auto"
               >
                 <img
                   src={dict.image || dict.image_url}
