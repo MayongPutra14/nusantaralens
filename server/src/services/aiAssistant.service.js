@@ -17,14 +17,21 @@ export const predictImage = async (image) => {
     const formData = new FormData();
 
     formData.append('file', image.buffer, {
-      filename: image.originalname,
-      contentType: image.mimetype,
+      filename: image.originalname || 'image.jpg',
+      contentType: image.mimetype || 'image/jpeg',
+      knownLength: image.buffer.length,
     });
 
     const response = await axios.post(process.env.AI_MODEL_URL, formData, {
-      headers: formData.getHeaders(),
+      headers: {
+        ...formData.getHeaders(),
+        'User-Agent':
+          'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        Accept: 'application/json',
+      },
       timeout: 30000,
     });
+
     if (
       response.data &&
       response.data.status === 'success' &&
@@ -34,6 +41,7 @@ export const predictImage = async (image) => {
     }
   } catch (err) {
     const statusCode = err.response ? err.response.status : 502;
+    console.error('AXIOS ERROR DETAILS:', err.response?.data || err.message);
     const message =
       err.response?.data?.message || 'External Model AI is not response.';
     throw new AppError(`Predict Image Failed: ${message}`, statusCode);
