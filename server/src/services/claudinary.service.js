@@ -1,7 +1,7 @@
 import cloudinary from '../config/cloudinary.config.js';
 import { Readable } from 'node:stream';
 import sharp from 'sharp';
-import AppError from '../utils/appError.utils.js';
+import { AppError } from '../utils/appError.utils.js';
 
 export const uploadedImageToClaudinary = async (
   fileBuffer,
