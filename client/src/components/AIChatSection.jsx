@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaPaperclip, FaPaperPlane, FaUser, FaMusic, FaCommentDots, FaXmark } from 'react-icons/fa6';
 import bgBatik from '../assets/ai/bg-batik.png';
@@ -8,29 +8,26 @@ const AIChatSection = () => {
   const fileInputRef = useRef(null);
   const chatEndRef = useRef(null);
 
-  const [sessionId] = useState(() => `session_${Date.now()}`);
+  // Menyipan session id menggunakan sessionStorage jika dan menggunakannya jika user sudah memilikinya
+  const [sessionId] = useState(() => {
+    const savedSessionId = sessionStorage.getItem('nusabot_session_id');
+    if (savedSessionId) return savedSessionId;
 
-  const [messages, setMessages] = useState([]);
+    const newSessionId = `session_${Date.now()}`;
+    sessionStorage.setItem('nusabot_session_id', newSessionId);
+    return newSessionId;
+  });
+
+  // Mepertahankan chat ketika di refresh atau pindah halaman.
+  const [messages, setMessages] = useState(() => {
+    const savedMessages = sessionStorage.getItem('nusabot_chat_messages');
+    return savedMessages ? JSON.parse(savedMessages) : [];
+  });
+
   const [inputText, setInputText] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
   const [isTyping, setIsTyping] = useState(false);
-
-  // Auto-scroll ke chat terbawah
-  useEffect(() => {
-    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
-
-  // Tangkap data lemparan dari halaman depan (AIAssistantSection)
-  useEffect(() => {
-    if (location.state) {
-      const { initialPrompt, initialFile } = location.state;
-      if (initialPrompt || initialFile) {
-        handleSendMessage(initialPrompt || "", initialFile);
-        window.history.replaceState({}, document.title);
-      }
-    }
-  }, []);
 
   const handleAttachmentClick = () => fileInputRef.current.click();
 
@@ -49,7 +46,7 @@ const AIChatSection = () => {
   };
 
   // Fungsi Tembak API AI
-  const handleSendMessage = async (text = inputText, file = selectedFile) => {
+  const handleSendMessage = useCallback( async (text = inputText, file = selectedFile) => {
     if (!text.trim() && !file) return;
 
     // 1. Masukkan pesan user ke UI
@@ -96,7 +93,32 @@ const AIChatSection = () => {
     } finally {
       setIsTyping(false);
     }
-  };
+  }, [sessionId, inputText, selectedFile]);
+
+  // Sinkronasi chat baru dari user dan jawaban baru dari AI
+  useEffect(() => {
+    sessionStorage.setItem('nusabot_chat_messages', JSON.stringify(messages));
+  }, [messages])
+
+  // Auto-scroll ke chat terbawah
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
+
+  // Tangkap data lemparan dari halaman depan (AIAssistantSection)
+  useEffect(() => {
+    if (location.state) {
+      const { initialPrompt, initialFile } = location.state;
+      if (initialPrompt || initialFile) {
+        const timer = setTimeout(() => {
+          handleSendMessage(initialPrompt || "", initialFile);
+          window.history.replaceState({}, document.title);
+        }, 0);
+
+        return () => clearTimeout(timer)
+      }
+    }
+  }, [location.state, handleSendMessage]);
 
   return (
     <section className="relative w-full min-h-screen bg-bianca-50 flex flex-col items-center pt-32 pb-8 px-4 md:px-6 overflow-hidden">
