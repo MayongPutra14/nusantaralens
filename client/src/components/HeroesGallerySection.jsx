@@ -40,7 +40,6 @@ const HeroesGallerySection = () => {
           },
         );
         const result = await response.json();
-        console.log(result)
         if (result.status === "success") {
           setHeroesData(result.data.heroes || result.data);
         }
@@ -113,7 +112,7 @@ const HeroesGallerySection = () => {
       <div className="relative w-full max-w-5xl mx-auto px-6 pb-16 flex flex-col items-center text-center z-10">
         <div
           data-aos="fade-left"
-          className="absolute right-4 md:-right-6 -top-10 w-20 md:w-32 pointer-events-none opacity-80 drop-shadow-md"
+          className="absolute right-2 md:-right-6 -top-10 w-20 md:w-32 pointer-events-none opacity-80 drop-shadow-md"
         >
           <img
             src={burungOrnament}
@@ -274,7 +273,7 @@ const HeroesGallerySection = () => {
       {/* COMPONENT MODAL DETAIL */}
       {selectedHero && (
         <div
-          className="fixed inset-0 z-[999] overflow-y-auto bg-black/80 backdrop-blur-md mt-20 px-4 py-20 md:py-12 flex items-start justify-center animate-fadeIn"
+          className="fixed inset-0 z-[999] overflow-y-auto bg-black/80 backdrop-blur-md mt-16 -20 px-4 py-20 md:py-12 md:mt   flex items-start justify-center animate-fadeIn"
           onClick={() => setSelectedHero(null)}
         >
           <div

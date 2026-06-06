@@ -1,4 +1,5 @@
 # Nusantaralens API
+
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 ## Deskripsi Proyek
@@ -23,13 +24,14 @@ Layanan Back End **NusantaraLens** dibangun menggunakan ekosistem teknologi yang
 </p>
 
 ### Core Stack
-* **Node.js** – Runtime JavaScript di sisi server untuk menangani operasi I/O yang cepat dan asinkron.
-* **Express.js** – Framework minimalis dan fleksibel untuk membangun RESTful API yang kokoh.
+
+- **Node.js** – Runtime JavaScript di sisi server untuk menangani operasi I/O yang cepat dan asinkron.
+- **Express.js** – Framework minimalis dan fleksibel untuk membangun RESTful API yang kokoh.
 
 ### Database & Caching
-* **PostgreSQL** – Sistem database relasional (*RDBMS*) utama untuk pengelolaan data budaya dengan dukungan *connection pooling*.
-* **Redis** – *In-memory data store* berkinerja tinggi yang digunakan untuk manajemen *caching* demi mengoptimalkan kecepatan query.
 
+- **PostgreSQL** – Sistem database relasional (_RDBMS_) utama untuk pengelolaan data budaya dengan dukungan _connection pooling_.
+- **Redis** – _In-memory data store_ berkinerja tinggi yang digunakan untuk manajemen _caching_ demi mengoptimalkan kecepatan query.
 
 ## Environment Setup
 
@@ -195,7 +197,7 @@ npm run start:prod
 
 ---
 
-##  API Documentation (Interactive UI)
+## API Documentation (Interactive UI)
 
 Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI Specification 3.0** dan **Swagger UI**. Seluruh skema data, parameter, _request body_, dan contoh respon dari endpoint `Heroes`, `Cultures`, `Languages`, `Populations`, dan `AI Assistant` dapat diakses secara langsung melalui browser Anda.
 
@@ -221,9 +223,10 @@ Proyek ini telah dilengkapi dengan dokumentasi interaktif menggunakan **OpenAPI 
 
 Proyek Back-End ini dirancang dan dikembangkan sepenuhnya oleh:
 
-* **Gilang Mayong Saputra**
-  * *Role:* Backend Developer
-  * *GitHub:* [@MayongPutra14](https://github.com/MayongPutra14)
+- **Gilang Mayong Saputra**
+  - _Role:_ Backend Developer
+  - _GitHub:_ [@MayongPutra14](https://github.com/MayongPutra14)
 
 ---
-*Dibuat dengan ❤️ untuk pelestarian budaya Indonesia.*
+
+_Dibuat dengan ❤️ untuk pelestarian budaya Indonesia._

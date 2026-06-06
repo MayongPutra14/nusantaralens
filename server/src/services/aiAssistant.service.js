@@ -1,16 +1,14 @@
+import { geminiAI } from '../config/gemini.config.js';
 import { GoogleGenAI } from '@google/genai';
 import axios from 'axios';
 import FormData from 'form-data';
 import { AppError } from '../utils/appError.utils.js';
 import { uploadedImageToClaudinary } from './claudinary.service.js';
+import { NUSABOT_SYSTEM_PROMPT } from '../utils/prompt/nusabot.system.prompt.js';
 import {
   getChatHistoryBySession,
   saveChatHistory,
 } from '../repositories/aiAsisstant.repository.js';
-
-const geminiAI = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
 
 export const predictImage = async (image) => {
   try {
@@ -93,6 +91,11 @@ export const generateGeminiResponse = async (prompt, history = []) => {
     const response = await geminiAI.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: contents,
+      config: {
+        systemInstruction: NUSABOT_SYSTEM_PROMPT,
+        temperature: process.env.GEMINI_TEMPRATURE,
+        maxOutputTokens: process.env.GEMINI_MAX_TOKEN,
+      },
     });
 
     return response.text;
@@ -125,11 +128,8 @@ export const handleChatAssistant = async ({ sessionId, prompt, image }) => {
     const geminiPrompt = `
         User Prompt:
         ${prompt || 'tidak ada prompt dari user!'}
-
         Hasil Analisis AI:
         - Prediksi budaya: ${prediction.prediction}
-        
-        ${process.env.GEMINI_SYSTEM_PROMPT}
       `;
 
     finalResponse = await generateGeminiResponse(geminiPrompt, history);

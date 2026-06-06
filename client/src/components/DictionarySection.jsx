@@ -295,12 +295,13 @@ const DictionarySection = () => {
       <div className="relative w-full max-w-5xl mx-auto px-6 pb-12 flex flex-col items-center text-center">
         <div
           data-aos="fade-left"
-          className="absolute right-0 md:-right-10 top-5 md:top-10 w-24 md:w-36 pointer-events-none opacity-90 drop-shadow-sm"
+          className="absolute right-2 md:-right-6 -top-10 w-20 md:w-32 pointer-events-none opacity-80 drop-shadow-md"
         >
           <img
             src={burungOrnament}
             alt="Ornamen Burung"
-            className="w-full h-auto"
+            className="w-full h-auto animate-pulse"
+            style={{ animationDuration: "4s" }}
           />
         </div>
 
@@ -453,11 +454,12 @@ const DictionarySection = () => {
           />
         </div>
         <div data-aos="zoom-in" className="text-center max-w-xl flex-grow px-4">
-          <h2 className="text-xl md:text-2xl font-base text-inv-accent font-semibold leading-relaxed mb-4 md:mb-6">
+          <h2 className="text-xl md:text-2xl font-base text-inv-accent font-bold leading-relaxed mb-4 italic text-gray-800">
             "Membaca buku-buku yang baik berarti memberi makanan rohani yang
             baik."
           </h2>
-          <p className="text-gray-700 font-teachers text-sm md:text-base tracking-wide">
+          <div className="w-12 h-1 bg-[#b5a38f] mx-auto mb-4 rounded-full"></div>
+          <p className="text-gray-500 font-teachers text-sm md:text-base tracking-widest font-medium">
             Buya Hamka
           </p>
         </div>

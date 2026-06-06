@@ -53,10 +53,13 @@ const FooterSection = () => {
                 <Link to="/insights">Insights Peta</Link>
               </li>
               <li className="hover:text-white hover:translate-x-2 transition-all duration-300 w-fit">
+                <Link to="/explore/pahlawan">- Eksplor Pahlawan</Link>
+              </li>
+              <li className="hover:text-white hover:translate-x-2 transition-all duration-300 w-fit">
                 <Link to="/explore/budaya">- Eksplor Budaya</Link>
               </li>
               <li className="hover:text-white hover:translate-x-2 transition-all duration-300 w-fit">
-                <Link to="/explore/pahlawan">- Eksplor Pahlawan</Link>
+                <Link to="/explore/kamus">- Eksplor Bahasa daerah</Link>
               </li>
             </ul>
           </div>
