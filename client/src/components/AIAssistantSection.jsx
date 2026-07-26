@@ -43,7 +43,7 @@ const AIAssistantSection = () => {
         <img src={barong} alt="Ornamen Barong Kiri" className="absolute top-1/2 left-1/4 -translate-y-1/2 w-32 md:w-48 opacity-80" />
       </div>
       <div data-aos="fade-left" data-aos-delay="200" className="hidden md:block absolute right-[-5%] lg:right-[2%] top-1/2 transform -translate-y-1/2 w-48 lg:w-72 opacity-90 z-10 pointer-events-none transition-all duration-300">
-        <img src={barong} alt="Ornamen Barong Kanan" className="absolute  top-1/2 right-1/4 -translate-y-1/2 w-32 md:w-48 opacity-80" />
+        <img src={barong} alt="Ornamen Barong Kanan" className="absolute top-1/2 right-1/4 -translate-y-1/2 w-32 md:w-48 opacity-80" />
       </div>
 
       <div className="relative z-20 w-full max-w-4xl mx-auto text-center flex flex-col items-center">

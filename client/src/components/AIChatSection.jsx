@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaPaperclip, FaPaperPlane, FaUser, FaMusic, FaCommentDots, FaXmark } from 'react-icons/fa6';
+import ReactMarkdown from 'react-markdown';
 import bgBatik from '../assets/ai/bg-batik.png';
 
 const AIChatSection = () => {
@@ -167,7 +168,15 @@ const AIChatSection = () => {
                     : 'bg-white text-gray-800 rounded-[24px] rounded-bl-sm border border-gray-100'
                 }`}>
                   {msg.image && <img src={msg.image} alt="User Upload" className="max-w-full h-40 md:h-60 object-cover rounded-xl mb-3 shadow-sm" />}
-                  {msg.text && <p className="whitespace-pre-line">{msg.text}</p>}
+                  {msg.text && (
+                    msg.sender === 'ai' ? (
+                      <div className="prose-chat">
+                        <ReactMarkdown>{msg.text}</ReactMarkdown>
+                      </div>
+                    ) : (
+                      <p className="whitespace-pre-line">{msg.text}</p>
+                    )
+                  )}
                 </div>
               </div>
             ))}
